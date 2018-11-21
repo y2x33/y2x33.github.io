@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="performance, 前端, 性能, cdn, http缓存, dom, 动画, AMP, 图片加载">
+<meta name="keywords" content="性能,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化小结">
+<meta property="og:url" content="http://y2x33.github.io/2017/12/10/17-12-10-web-performance/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="performance, 前端, 性能, cdn, http缓存, dom, 动画, AMP, 图片加载">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blogx-1255641342.file.myqcloud.com/http-cache-hierarchy.png">
+<meta property="og:updated_time" content="2017-12-10T15:47:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化小结">
+<meta name="twitter:description" content="performance, 前端, 性能, cdn, http缓存, dom, 动画, AMP, 图片加载">
+<meta name="twitter:image" content="http://blogx-1255641342.file.myqcloud.com/http-cache-hierarchy.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>前端性能优化小结</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/11/12/cross-gfw/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&text=前端性能优化小结"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&is_video=false&description=前端性能优化小结"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=前端性能优化小结&body=Check out this article: http://y2x33.github.io/2017/12/10/17-12-10-web-performance/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&name=前端性能优化小结&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-网络"><span class="toc-number">1.</span> <span class="toc-text">1. 网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-减少网络请求数量，压缩资源"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 减少网络请求数量，压缩资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-使用CDN"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 使用CDN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-HTTP缓存头"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. HTTP缓存头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-HTTP-2-0"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 HTTP 2.0</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-渲染"><span class="toc-number">2.</span> <span class="toc-text">2. 渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-老生常谈的渲染顺序"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 老生常谈的渲染顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-DOM相关"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. DOM相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-动画"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 动画</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-js语法"><span class="toc-number">3.</span> <span class="toc-text">3. js语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-其他"><span class="toc-number">4.</span> <span class="toc-text">4. 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-一些技巧"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 一些技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-AMP（Accelerated-Mobile-Pages）"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. AMP（Accelerated Mobile Pages）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-WebAssembly"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. WebAssembly</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        前端性能优化小结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-10T14:43:49.000Z" itemprop="datePublished">2017-12-10</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/前端/">前端</a>, <a class="tag-link" href="/tags/性能/">性能</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>本文来源于平时工作的一些总结，在写的过程中也看了很多资料，集结成文章以加深记忆。</p>
+<h1 id="1-网络"><a href="#1-网络" class="headerlink" title="1. 网络"></a>1. 网络</h1><h2 id="1-1-减少网络请求数量，压缩资源"><a href="#1-1-减少网络请求数量，压缩资源" class="headerlink" title="1.1. 减少网络请求数量，压缩资源"></a>1.1. 减少网络请求数量，压缩资源</h2><p>压缩合并js、css、image、以及其他静态资源等等，这些都可以通过打包工具做到。例如<a href="https://doc.webpack-china.org/" target="_blank" rel="noopener">webpack</a>，已经发展到3.0而且有非常完整的中文翻译，基本上按需求配一套完整的（虽然配置一套会非常麻烦），就可以满足需求。Webpack可以打包输出多个js bundle，甚至提取出js的公共部分。这部分要根据需求自己调整。<br>对于使用框架的应用，使用脚手架会更加方便，例如:<br><a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">GitHub - vuejs/vue-cli: Simple CLI for scaffolding Vue.js projects</a><br><a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="noopener">GitHub - facebookincubator/create-react-app: Create React apps with no build configuration.</a></p>
+<h2 id="1-2-使用CDN"><a href="#1-2-使用CDN" class="headerlink" title="1.2. 使用CDN"></a>1.2. 使用CDN</h2><blockquote>
+<p>CDN的全称是Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。<br>——百度百科</p>
+</blockquote>
+<p>总之，优点是让全球的用户访问都保证速度，缺点是有缓存。</p>
+<h2 id="1-3-HTTP缓存头"><a href="#1-3-HTTP缓存头" class="headerlink" title="1.3. HTTP缓存头"></a>1.3. HTTP缓存头</h2><p><img src="http://blogx-1255641342.file.myqcloud.com/http-cache-hierarchy.png" alt="缓存策略"><br>目前广泛采用的正是上图的策略，既能够灵活的更新css和js，以应对需要紧急fix的bug。另外一方面，通过<code>Cache-Control</code>和<code>ETag</code>灵活控制静态资源的过期时间、更新策略等等。</p>
+<p>推荐阅读：<br><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn" target="_blank" rel="noopener">HTTP 缓存  |  Web       |  Google Developers</a>：上图图片的出处<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="noopener">HTTP 缓存 - HTTP | MDN</a></p>
+<h2 id="1-4-HTTP-2-0"><a href="#1-4-HTTP-2-0" class="headerlink" title="1.4 HTTP 2.0"></a>1.4 HTTP 2.0</h2><p>http 2.0 能够让资源并行加载，可以把第一点中的合并相关的方法都打回原形。//不过我并没有用过</p>
+<p>推荐阅读：<br><a href="http://www.alloyteam.com/2015/03/http2-0-di-qi-miao-ri-chang/" target="_blank" rel="noopener">HTTP2.0的奇妙日常 | AlloyTeam</a> ：这篇文章写得生动有趣，非常推荐一读。</p>
+<hr>
+<h1 id="2-渲染"><a href="#2-渲染" class="headerlink" title="2. 渲染"></a>2. 渲染</h1><h2 id="2-1-老生常谈的渲染顺序"><a href="#2-1-老生常谈的渲染顺序" class="headerlink" title="2.1. 老生常谈的渲染顺序"></a>2.1. 老生常谈的渲染顺序</h2><p>css在顶部（head)，js在下（body的最后）。这是为了不让渲染被阻塞。</p>
+<h2 id="2-2-DOM相关"><a href="#2-2-DOM相关" class="headerlink" title="2.2. DOM相关"></a>2.2. DOM相关</h2><ol>
+<li>尽量减少DOM层级，能不嵌套就不嵌套</li>
+<li>减少操作DOM，避免重绘（repaint）和重排（Reflow）。<br>重排：即页面元素的布局改变（必定导致重绘）；<br>重绘：即页面元素重新被渲染；</li>
+</ol>
+<p>现代浏览器已经优化了repaint和reflow，在连续操作的情况下，浏览器会将这些操作积累以后一起执行。但是写代码的时候还是要注意：</p>
+<ol>
+<li><p>样式的修改通过类名<code>class</code>，而非<code>ele.style.xxx</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 注意：classList有一个自带toggle方法，不过仍然存在兼容性问题</span><br><span class="line">function toggleClass(ele, className)&#123;</span><br><span class="line">  if(ele.classList.contains(className))&#123;</span><br><span class="line">    ele.classList.remove(className);</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    ele.classList.add(className);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不要在循环语句里查找dom，需提前缓存好。</p>
+</li>
+<li>DOM节点生成 &amp; 插入的正确姿势：<br>使用<code>createDocumentFragment()</code>：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let container = document.getElementById(&quot;container&quot;);</span><br><span class="line">let ele;</span><br><span class="line">let fragment = document.createDocumentFragment();</span><br><span class="line">data.map(item =&gt; &#123;</span><br><span class="line">  ele = document.createElement(&quot;span&quot;);</span><br><span class="line">  ele.innerText = item;</span><br><span class="line">  fragment.appendChild(ele);</span><br><span class="line">&#125;)</span><br><span class="line">container.appendChild(fragment);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以及我更加喜欢的<code>innerHTML</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let container = document.getElementById(&quot;container&quot;);</span><br><span class="line">let str = &apos;&apos;;</span><br><span class="line">let ele = document.createElement(&apos;ul&apos;);</span><br><span class="line">data.map(item =&gt; &#123;</span><br><span class="line">   str += `&lt;li class=&quot;item&quot;&gt;$&#123;item&#125;&lt;/li&gt;`;</span><br><span class="line">&#125;)</span><br><span class="line">ele.innerHTML = str;</span><br><span class="line">container.appendChild(fragment);</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-3-动画"><a href="#2-3-动画" class="headerlink" title="2.3. 动画"></a>2.3. 动画</h2><p>js动画和css动画的性能之争是老生常谈的故事了。一般来说，能用css写的动画，我都会用css写。<br>引用google的<a href="https://developers.google.com/web/fundamentals/design-and-ux/animations/css-vs-javascript?hl=zh-cn" target="_blank" rel="noopener">总结</a>——</p>
+<blockquote>
+<p>当您为 UI 元素采用较小的独立状态时，使用 CSS。 CSS 变换和动画非常适合于从侧面引入导航菜单，或显示工具提示。最后，可以使用 JavaScript 来控制状态，但动画本身是采用 CSS。<br>在需要对动画进行大量控制时，使用 JavaScript。 Web Animations API 是一个基于标准的方法，现已在 Chrome 和 Opera 中提供。该方法可提供实际对象，非常适合复杂的对象导向型应用。在需要停止、暂停、减速或倒退时，JavaScript 也非常有用。</p>
+</blockquote>
+<ol>
+<li>js 帧动画：<br>动画时需要保持60fps的帧率才能说服人眼，js写动画一般有如下两种方式：</li>
+</ol>
+<ul>
+<li><code>setTimeout</code>和<code>setInterval</code>手动设置帧率（16ms，即1000s / 60）。但是由于机器真正的刷新频率不同，刷新频率与重绘频率不一致导致性能浪费，以及在离开浏览器tab时，动画并不会停下，导致CPU和电池持续消耗。</li>
+<li>使用<code>requestAnimationFrame</code>。<code>requestAnimationFrame</code>可以根据机器的刷新频率让浏览器在真正的下一帧执行动画，从而达到流畅的动画效果。相当于将计算帧率的事情交给浏览器，而浏览器还能进一步为你优化这个计算。在离开浏览器tab时，动画会停止，节约CPU和电池资源。</li>
+</ul>
+<p>两种渲染方式对比：<a href="http://jsfiddle.net/calpo/H7EEE/" target="_blank" rel="noopener">requestAnimationFrame vs setTimeout - JSFiddle</a><br>查看兼容：<a href="https://caniuse.com/#search=requestAnimationFrame" target="_blank" rel="noopener">Can I use</a></p>
+<ol start="2">
+<li>css动画：<br>涉及到修改元素尺寸或者位置时，减少使用盒模型相关的：margin、padding、width、height，以及定位属性相关的：top、right、bottom、left等等，上述属性都是常用的动画相关的属性，但是会触发重排，引起性能问题。<br>尽量使用<code>transform</code>属性，例如其中的<code>translate</code>，<code>scale</code>，<code>rotate</code>等等。同时可以强行加上3d开启硬件渲染。<br>除此之外，<code>opacity</code>也不会触发重排。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@keyframe moveToRight&#123;</span><br><span class="line">  from &#123;</span><br><span class="line">    opacity: 1,</span><br><span class="line">    // bad</span><br><span class="line">    margin-right: 0,</span><br><span class="line">    // good </span><br><span class="line">    transform: translate3d(0, 0, 0);</span><br><span class="line">  &#125;</span><br><span class="line">  to &#123;</span><br><span class="line">    opacity: 0,</span><br><span class="line">    // bad</span><br><span class="line">    margin-right: 10px,</span><br><span class="line">    // good </span><br><span class="line">    transform: translate3d(10px, 0, 0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h1 id="3-js语法"><a href="#3-js语法" class="headerlink" title="3. js语法"></a>3. js语法</h1><p>这里能说的很多，大牛们甚至能通过编译器深入探讨js执行的性能问题。<br>能力有限，这里仅仅举几个常用的例子：</p>
+<ol>
+<li><p>循环时提前缓存数组长度——计算的结果若需要多次使用，则先进行缓存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(let i = 0, len = data.length; i &lt; len; i++)&#123; </span><br><span class="line">  // do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>switch...case</code>代替<code>if...else</code>。除去性能问题，个人也更加喜欢前者，看着更加清爽干净。</p>
+</li>
+<li>使用<code>===</code>而非<code>==</code>，免于隐式转换。</li>
+<li>数组的遍历，数据的遍历方式多种多样，包括for-in、for-of、map、for、while等等。for-in由于性能问题备受诟病，最原始的for和while反而是性能最突出的。//虽然我还是最喜欢map<br>…等等。</li>
+</ol>
+<p>推荐阅读：<br><a href="https://github.com/jawil/blog/issues/2" target="_blank" rel="noopener">吹毛求疵的追求优雅高性能JavaScript · Issue #2 · jawil/blog · GitHub</a></p>
+<h1 id="4-其他"><a href="#4-其他" class="headerlink" title="4. 其他"></a>4. 其他</h1><h2 id="4-1-一些技巧"><a href="#4-1-一些技巧" class="headerlink" title="4.1. 一些技巧"></a>4.1. 一些技巧</h2><ol>
+<li>懒加载以及图片的N种兜底图方法。<br>我们通常会给图片留下一定的空间，避免内容加载时页面布局不停的抖动。<br><strong><em>懒加载</em></strong>的基本原理是，不将所有的图片同时加载出来，而是监听页面滑动，滑动到当前或即将进入屏幕的图片才会被加载出来。<br><strong><em>兜底图</em></strong>就是真正的图片还未加载出来时显示的图片，与图片懒加载技术相辅相成。如果说懒加载是为了优化性能，那么兜底图就是为了优化体验。图片兜底图的样式则是多种多样，例如：</li>
+</ol>
+<ul>
+<li>用同一张静态的图片兜底，一般是网站的标识图</li>
+<li>用纯色，这两种方法是最简单而且最单调的，因为所有图片都是一样的，但是对于非图片为主体的页面来说，其实是足够的。</li>
+<li>压缩出一张分辨率较低的图，手动实现渐进式图片的效果。</li>
+<li>通过服务器或者压缩后的小图，提取图片主要颜色呈现各种效果，例如纯色、渐变色等等</li>
+<li>通过一些算法，用原图直接生成一些体积非常小，但是有趣的图，例如黑白的、描边的、抽象的等等。</li>
+</ul>
+<p>推荐阅读：<br><a href="http://www.jianshu.com/p/d2817058c901" target="_blank" rel="noopener">使用渐进式 JPEG 来提升用户体验 - 简书</a><br><a href="https://medium.freecodecamp.org/using-svg-as-placeholders-more-image-loading-techniques-bed1b810ab2c" target="_blank" rel="noopener">How to use SVG as a Placeholder, and Other Image Loading Techniques</a>：这个作者介绍了一种很棒的兜底图，看上去很高科技很酷炫，有空想要翻译或者使用一下。</p>
+<ol start="3">
+<li>节流和去抖动<br>在滑动或者用户输入这些频繁被触发的事件里，我们应该尽量减少复杂的操作、减少复杂的计算，否则可能导致用户输入卡顿、或者资源的浪费。<br><strong><em>节流（throttle）</em></strong>，也就是定时触发某个任务。<br><strong><em>去抖动（debounce）</em></strong>，任务执行完以后，甚至执行完的一段时间后才能再次触发任务。一般都是使用这个。</li>
+</ol>
+<p>推荐阅读：<br><a href="https://github.com/stephenLYao/stephenLYao.github.io/issues/17" target="_blank" rel="noopener">深入浅出throttle和debounce · Issue #17 · stephenLYao/stephenLYao.github.io · GitHub</a></p>
+<h2 id="4-2-AMP（Accelerated-Mobile-Pages）"><a href="#4-2-AMP（Accelerated-Mobile-Pages）" class="headerlink" title="4.2. AMP（Accelerated Mobile Pages）"></a>4.2. AMP（Accelerated Mobile Pages）</h2><p>AMP是google出品的，能加速页面显示和加载。跟PWA一样，也是google不遗余力推的一个技术（所以<a href="https://www.ampproject.org/zh_cn/docs/" target="_blank" rel="noopener">中文文档</a>也是相当全面且规范）。然而AMP实现性能优化的方法，是通过限制开发者随心所欲使用js和css实现的，因为官方已经用最优方法帮你实现了一些东西，你只要去使用即可，几乎不需要自己去造轮子。<br>一方面，要使用AMP定制的标签、组件（有点类似于react组件，但是不需要自定义，只需要使用其暴露出来的方法即可），来组装页面的各个部分。现在组件已经比较多了，可以满足很多需求。<br>另一方面，开发者不能插入自己的js，不能使用外联css，还有其他各种限制，颇有种带着镣铐跳舞的感觉。<br>也正是因为如此，AMP所能使用的范围终究是有限的。例如新闻、文档等内容展示等等，目前官方支持的一些组件其实也是往这方向发展的，例如广告组件、社交分享组件、页面分析组件、多媒体组件等等，也许跟ssr是绝配（虽然没有用过）。官方也有电子商务网站的示例，但是比较终究是比较简单的。另外，需要跟native进行交互的页面也自然无法使用。<br>将页面改用AMP实现并不单单是开发者的事，除非你同时也是设计师和PM。正确的流程是，重新审视页面的需求、所需要的技术。然后权衡是否要为了性能，重新设计页面的交互，甚至放弃页面中的一些东西。这其中，不仅仅是开发者需要反复翻看文档，甚至PM和设计师也需要。</p>
+<h2 id="4-3-WebAssembly"><a href="#4-3-WebAssembly" class="headerlink" title="4.3. WebAssembly"></a>4.3. WebAssembly</h2><p>能够直接解决js的性能瓶颈，仅仅看文档了解了一下。以后有时间再看看。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-网络"><span class="toc-number">1.</span> <span class="toc-text">1. 网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-减少网络请求数量，压缩资源"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 减少网络请求数量，压缩资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-使用CDN"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 使用CDN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-HTTP缓存头"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. HTTP缓存头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-HTTP-2-0"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 HTTP 2.0</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-渲染"><span class="toc-number">2.</span> <span class="toc-text">2. 渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-老生常谈的渲染顺序"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 老生常谈的渲染顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-DOM相关"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. DOM相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-动画"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 动画</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-js语法"><span class="toc-number">3.</span> <span class="toc-text">3. js语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-其他"><span class="toc-number">4.</span> <span class="toc-text">4. 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-一些技巧"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 一些技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-AMP（Accelerated-Mobile-Pages）"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. AMP（Accelerated Mobile Pages）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-WebAssembly"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. WebAssembly</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&text=前端性能优化小结"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&is_video=false&description=前端性能优化小结"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=前端性能优化小结&body=Check out this article: http://y2x33.github.io/2017/12/10/17-12-10-web-performance/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&title=前端性能优化小结"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/12/10/17-12-10-web-performance/&name=前端性能优化小结&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 2x
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '2x';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

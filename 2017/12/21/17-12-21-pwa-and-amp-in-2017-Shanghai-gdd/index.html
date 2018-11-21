@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="点这里看完整视频（不过只有主会场）：谷歌开发者大会—在线播放—优酷网，视频高清在线观看 Progressive Web Apps  |  Web       |  Google Developers：PWA其实是google这几年一直在推的一个东西，国内其实是不太看好的。但是从官方的数据来看，其实PWA在国外的表现还是很漂亮的，对于出海应用来说，是一个很好的选择。而google推这个技术也不是口头">
+<meta name="keywords" content="前端,PWA,AMP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017上海谷歌开发者大会PWA &amp; AMP部分笔记">
+<meta property="og:url" content="http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="点这里看完整视频（不过只有主会场）：谷歌开发者大会—在线播放—优酷网，视频高清在线观看 Progressive Web Apps  |  Web       |  Google Developers：PWA其实是google这几年一直在推的一个东西，国内其实是不太看好的。但是从官方的数据来看，其实PWA在国外的表现还是很漂亮的，对于出海应用来说，是一个很好的选择。而google推这个技术也不是口头">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/121221_sw_cache.JPG">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/121221_pwa_pkg_size.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/121221_pwa_get_user.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/121221_pwa_browser.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/121221_amp_in_china.png">
+<meta property="og:updated_time" content="2018-03-06T07:47:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017上海谷歌开发者大会PWA &amp; AMP部分笔记">
+<meta name="twitter:description" content="点这里看完整视频（不过只有主会场）：谷歌开发者大会—在线播放—优酷网，视频高清在线观看 Progressive Web Apps  |  Web       |  Google Developers：PWA其实是google这几年一直在推的一个东西，国内其实是不太看好的。但是从官方的数据来看，其实PWA在国外的表现还是很漂亮的，对于出海应用来说，是一个很好的选择。而google推这个技术也不是口头">
+<meta name="twitter:image" content="http://blogx-1255641342.picsh.myqcloud.com/121221_sw_cache.JPG">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>2017上海谷歌开发者大会PWA &amp; AMP部分笔记</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/12/29/17-12-29-keyboard-in-react-native/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/12/10/17-12-10-web-performance/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&text=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&is_video=false&description=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2017上海谷歌开发者大会PWA &amp; AMP部分笔记&body=Check out this article: http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&name=2017上海谷歌开发者大会PWA &amp; AMP部分笔记&description=&lt;p&gt;点这里看完整视频（不过只有主会场）：&lt;a href=&quot;http://v.youku.com/v_show/id_XMzIyNjk3OTc4NA==.html?spm=a2h0k.8191407.0.0&amp;amp;from=s1.8-1-1.2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;谷歌开发者大会—在线播放—优酷网，视频高清在线观看&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developers.google.com/web/progressive-web-apps/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Progressive Web Apps  |  Web       |  Google Developers&lt;/a&gt;：PWA其实是google这几年一直在推的一个东西，国内其实是不太看好的。但是从官方的数据来看，其实PWA在国外的表现还是很漂亮的，对于出海应用来说，是一个很好的选择。而google推这个技术也不是口头说说，在国内这种特殊的环境下，他们跟进各大奇葩浏览器的兼容性，还是能感受到他们的真诚的。&lt;br&gt;现在servise worker也不是非常新的东西了，兼容性上来以后用的人也非常多。尤其是今年（2017），已经能看到许多相关的中文文档或者博客了。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.ampproject.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Accelerated Mobile Pages Project – AMP&lt;/a&gt;：相比之下，AMP在国内行走其实更加方便。虽然很不想按google这一套做，但是不得不承认是有很大效益的（明明都没有在生产上实践过你就瞎掰）。&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWA实现"><span class="toc-number">1.</span> <span class="toc-text">PWA实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWA-amp-AMP-❤️-中国"><span class="toc-number"></span> <span class="toc-text">PWA &amp; AMP ❤️ 中国</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWA"><span class="toc-number">1.</span> <span class="toc-text">PWA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">1.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#门槛"><span class="toc-number">1.2.</span> <span class="toc-text">门槛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工具（查看兼容）"><span class="toc-number">1.3.</span> <span class="toc-text">工具（查看兼容）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例：腾讯新闻"><span class="toc-number">1.4.</span> <span class="toc-text">示例：腾讯新闻</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMP"><span class="toc-number">2.</span> <span class="toc-text">AMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点-1"><span class="toc-number">2.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#国内生态"><span class="toc-number">2.2.</span> <span class="toc-text">国内生态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思考哪些页面更加适合amp"><span class="toc-number">2.3.</span> <span class="toc-text">思考哪些页面更加适合amp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与PWA的结合"><span class="toc-number">2.4.</span> <span class="toc-text">与PWA的结合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMP构造电商网站"><span class="toc-number">3.</span> <span class="toc-text">AMP构造电商网站</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#组成"><span class="toc-number">3.1.</span> <span class="toc-text">组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特点"><span class="toc-number">3.2.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哪些页面需要AMP"><span class="toc-number">3.3.</span> <span class="toc-text">哪些页面需要AMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建动态AMP"><span class="toc-number">3.4.</span> <span class="toc-text">创建动态AMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板"><span class="toc-number">3.5.</span> <span class="toc-text">模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PWA-amp-AMP"><span class="toc-number">3.6.</span> <span class="toc-text">PWA &amp; AMP</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        2017上海谷歌开发者大会PWA &amp; AMP部分笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-21T11:57:18.000Z" itemprop="datePublished">2017-12-21</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/AMP/">AMP</a>, <a class="tag-link" href="/tags/PWA/">PWA</a>, <a class="tag-link" href="/tags/前端/">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>点这里看完整视频（不过只有主会场）：<a href="http://v.youku.com/v_show/id_XMzIyNjk3OTc4NA==.html?spm=a2h0k.8191407.0.0&amp;from=s1.8-1-1.2" target="_blank" rel="noopener">谷歌开发者大会—在线播放—优酷网，视频高清在线观看</a></p>
+<p><a href="https://developers.google.com/web/progressive-web-apps/" target="_blank" rel="noopener">Progressive Web Apps  |  Web       |  Google Developers</a>：PWA其实是google这几年一直在推的一个东西，国内其实是不太看好的。但是从官方的数据来看，其实PWA在国外的表现还是很漂亮的，对于出海应用来说，是一个很好的选择。而google推这个技术也不是口头说说，在国内这种特殊的环境下，他们跟进各大奇葩浏览器的兼容性，还是能感受到他们的真诚的。<br>现在servise worker也不是非常新的东西了，兼容性上来以后用的人也非常多。尤其是今年（2017），已经能看到许多相关的中文文档或者博客了。</p>
+<p><a href="https://www.ampproject.org/" target="_blank" rel="noopener">Accelerated Mobile Pages Project – AMP</a>：相比之下，AMP在国内行走其实更加方便。虽然很不想按google这一套做，但是不得不承认是有很大效益的（明明都没有在生产上实践过你就瞎掰）。</p>
+<a id="more"></a>
+<h2 id="PWA实现"><a href="#PWA实现" class="headerlink" title="PWA实现"></a>PWA实现</h2><ol>
+<li>sw代码讲解<br>// 这个太技术细节了，就不分享了。可以走google的编程小课堂玩一玩<a href="https://codelabs.developers.google.com/codelabs/your-first-pwapp/#0" target="_blank" rel="noopener">Your First Progressive Web App</a></li>
+<li>缓存策略<br>这个学问其实很大，没仔细看过或者结合相关场景看的话，还真是没办法深入理解。在网上搜了一下，备用——<br><a href="https://github.com/lishengzxc/bblog/issues/39" target="_blank" rel="noopener">Service Worker 缓存策略 · Issue #39 · lishengzxc/bblog · GitHub</a>，重点还要看一下它的参考的那些网址。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/121221_sw_cache.JPG" alt="Service Worker 缓存策略"></li>
+</ol>
+<hr>
+<hr>
+<h1 id="PWA-amp-AMP-❤️-中国"><a href="#PWA-amp-AMP-❤️-中国" class="headerlink" title="PWA &amp; AMP ❤️ 中国"></a>PWA &amp; AMP ❤️ 中国</h1><h2 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li><p>安装包小（pwa &lt; android &lt; ios）<br><img src="http://blogx-1255641342.picsh.myqcloud.com/121221_pwa_pkg_size.png" alt="安装包小"></p>
+</li>
+<li><p>获取用户的成本低（一个原生用户，53个pwa用户）：这个是以housing.com（印度房地产中介网站）为例<br><img src="http://blogx-1255641342.picsh.myqcloud.com/121221_pwa_get_user.png" alt="获取用户的成本低"></p>
+</li>
+</ul>
+<h3 id="门槛"><a href="#门槛" class="headerlink" title="门槛"></a>门槛</h3><p>国内推送很尴尬 =&gt; 正在寻求解决方案……<br>浏览器支持问题，例如sw等等技术的兼容 =&gt; 国内许多浏览器厂商都支持了sw<br><img src="http://blogx-1255641342.picsh.myqcloud.com/121221_pwa_browser.png" alt="支持pwa的浏览器"></p>
+<p>此处插播UC浏览器的一些进展：</p>
+<blockquote>
+<p>实现了浏览器标准的推送消息等等  </p>
+</blockquote>
+<p>so ↓：</p>
+<ul>
+<li>国内很多浏览器是基于chromium =&gt; 碎片化没有那么严重，不需要太担心兼容问题（不用测试一堆浏览器）</li>
+<li>safari 已经在开发sw =&gt;皆大欢喜<br>2017年12月20日更新：Safari preview 46支持sw，撒花！~ <a href="https://webkit.org/blog/8042/release-notes-for-safari-technology-preview-46/" target="_blank" rel="noopener">Release Notes for Safari Technology Preview 46 | WebKit</a></li>
+</ul>
+<h3 id="工具（查看兼容）"><a href="#工具（查看兼容）" class="headerlink" title="工具（查看兼容）"></a>工具（查看兼容）</h3><ul>
+<li><a href="https://developers.google.com/web/feedback/browser-bug-searcher" target="_blank" rel="noopener">Browser Bug Searcher  |  Developer Feedback Program       |  Google Developers</a>：<br>可以查找四大浏览器实现sw的bug</li>
+<li>MDN 查看兼容表格:<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API" target="_blank" rel="noopener">Service Worker API - Web API 接口 | MDN</a></li>
+</ul>
+<h3 id="示例：腾讯新闻"><a href="#示例：腾讯新闻" class="headerlink" title="示例：腾讯新闻"></a>示例：腾讯新闻</h3><ul>
+<li>缓存网络失败的页面，离线时显示自定义页面（普通情况下，离线时，浏览器会自定义显示内容）</li>
+<li>第一次进入先缓存 -&gt; 第二次进入能能够秒展示</li>
+</ul>
+<hr>
+<h2 id="AMP"><a href="#AMP" class="headerlink" title="AMP"></a>AMP</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>秒开，提高转化<br>简化网页<br>异步下载<br>全球CDN<br>…</p>
+<h3 id="国内生态"><a href="#国内生态" class="headerlink" title="国内生态"></a>国内生态</h3><ul>
+<li>分发&amp;CDN（对SEO有好处） : 百度/搜狗/qzone/360搜索</li>
+<li>分析：百度统计 /友盟/ga</li>
+<li>广告平台：搜狗联盟，google adsense<br><img src="http://blogx-1255641342.picsh.myqcloud.com/121221_amp_in_china.png" alt="AMP的国内生态"></li>
+<li>国内已经有一些平台使用了amp技术，例如腾讯新闻、知乎等等</li>
+</ul>
+<h3 id="思考哪些页面更加适合amp"><a href="#思考哪些页面更加适合amp" class="headerlink" title="思考哪些页面更加适合amp"></a>思考哪些页面更加适合amp</h3><p>落地页<br>用户常去的页面<br>…</p>
+<h3 id="与PWA的结合"><a href="#与PWA的结合" class="headerlink" title="与PWA的结合"></a>与PWA的结合</h3><p>热门玩法：<br><strong>搜索落地页（AMP）-&gt;进入主站（PWA）</strong></p>
+<hr>
+<hr>
+<h2 id="AMP构造电商网站"><a href="#AMP构造电商网站" class="headerlink" title="AMP构造电商网站"></a>AMP构造电商网站</h2><h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><ul>
+<li>AMP HTML  </li>
+<li>AMP JS  </li>
+<li>AMP cache </li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>分优先级加载</li>
+<li>不允许开发者自己玩 js，但是提供很多组件</li>
+</ul>
+<h3 id="哪些页面需要AMP"><a href="#哪些页面需要AMP" class="headerlink" title="哪些页面需要AMP"></a>哪些页面需要AMP</h3><ol>
+<li>用户历程（应该是指用户转化过程吧），用户的关注点（漏斗状）<br>例如：电子商务的home页面、商品detail页面</li>
+<li>根据现有的功能支持</li>
+</ol>
+<ul>
+<li>导航</li>
+<li>image &amp; video</li>
+<li>动态数据</li>
+<li><strong>服务器</strong> 筛选和排序 </li>
+<li>表单验证</li>
+<li>付款</li>
+<li>输入建议</li>
+<li>…</li>
+</ul>
+<h3 id="创建动态AMP"><a href="#创建动态AMP" class="headerlink" title="创建动态AMP"></a>创建动态AMP</h3><p>动态网页的两大特点：</p>
+<ol>
+<li>用户操作 =&gt; 页面变化</li>
+</ol>
+<ul>
+<li><code>&lt;amp-bind&gt;</code>：相应用户操作，改变数据。绑定值为foo.bar + baz，显示foo.bar + baz的值</li>
+<li><code>&lt;amp-state&gt;</code>：foo.bar；绑定foo，显示bar</li>
+<li><code>on</code>：监听事件，AMP.setState({baz:’Shanghai’})<br>例子：<a href="https://www.ampproject.org/docs/reference/components/amp-bind" target="_blank" rel="noopener">amp-bind – AMP</a><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Store complex nested JSON data in &lt;amp-state&gt; elements. --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">amp-state</span> <span class="attr">id</span>=<span class="string">"myAnimals"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"application/json"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="undefined">      "dog": &#123;</span></span><br><span class="line"><span class="undefined">        "imageUrl": "/img/dog.jpg",</span></span><br><span class="line"><span class="undefined">        "style": "greenBackground"</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      "cat": &#123;</span></span><br><span class="line"><span class="undefined">        "imageUrl": "/img/cat.jpg",</span></span><br><span class="line"><span class="undefined">        "style": "redBackground"</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">amp-state</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">text</span>]=<span class="string">"'This is a ' + currentAnimal + '.'"</span>&gt;</span>This is a dog.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- CSS classes can also be added or removed with [class]. --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"greenBackground"</span> [<span class="attr">class</span>]=<span class="string">"myAnimals[currentAnimal].style"</span>&gt;</span></span><br><span class="line">  Each animal has a different background color.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Or change an image's src with the [src] binding. --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">amp-img</span> <span class="attr">width</span>=<span class="string">"300"</span> <span class="attr">height</span>=<span class="string">"200"</span> <span class="attr">src</span>=<span class="string">"/img/dog.jpg"</span></span></span><br><span class="line"><span class="tag">    [<span class="attr">src</span>]=<span class="string">"myAnimals[currentAnimal].imageUrl"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">amp-img</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">on</span>=<span class="string">"tap:AMP.setState(&#123;currentAnimal: 'cat'&#125;)"</span>&gt;</span>Set to Cat<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>服务器</li>
+</ol>
+<ul>
+<li>动态获取数据：使用<amp-mustache>——有点像是模板语言——读取数据，把各个字段值跟各个节点绑定</amp-mustache></li>
+<li>动态筛选和排序（服务器端）：<code>&lt;amp-list&gt;</code> &amp;  <code>&lt;amp-bind&gt;</code><br>例子：<a href="https://www.ampproject.org/docs/reference/components/amp-list" target="_blank" rel="noopener">amp-list – AMP</a><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">amp-list</span> <span class="attr">credentials</span>=<span class="string">"include"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">src</span>=<span class="string">"&lt;%host%&gt;/json/product.json?clientId=CLIENT_ID(myCookieId)"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">type</span>=<span class="string">"amp-mustache"</span>&gt;</span></span><br><span class="line">    Your personal offer: $&#123;&#123;price&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">amp-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>模板：<a href="https://ampstart.com/" target="_blank" rel="noopener">AMP Start - Accelarated Mobile Pages Templates</a><br>各种组件，以及使用的例子：<a href="https://ampbyexample.com/" target="_blank" rel="noopener">Learn AMP by Example</a></p>
+<h3 id="PWA-amp-AMP"><a href="#PWA-amp-AMP" class="headerlink" title="PWA &amp; AMP"></a>PWA &amp; AMP</h3><p>// 只是提出这个思路，并未深入探讨如何结合使用</p>
+<hr>
+<hr>
+<p><strong>一些感想</strong>：<br>第一次去GDD，给我的印象可以说非常不错：</p>
+<ol>
+<li>技术内容非常浅，毕竟每个分享都只有30分钟。大部分内容就是把官网介绍了一遍。对于一些本身有一定了解的技术，可能过去收获会比较少，但是一些不了解的技术，还是能给你一些灵感或者入门方向。</li>
+<li>每个场次的演讲内容有大量内容重复，个人觉得这个是应该可以避免的。不过在这种洗脑下还是很印象深刻的。</li>
+<li>演讲者准备得很用心。每场的演讲者都能够把内容讲清楚，而且表达流畅、逻辑清晰。配备的同传基本能把意思传达到，更甚者能把握演讲者的节奏，把每句话都完整准确地表达出来。（听同传的时候不要太贪心，要么只听同传的，要么只听原声，否则很难捕捉到有效的信息）</li>
+<li>组织得很用心。全程基本上是非常有秩序而且高效的。有两场火爆到站不下的分享甚至额外安排了场次，以满足没有听到的与会者。</li>
+<li>午餐、下午茶、晚宴，还有礼物基本想要就给，礼物也非常别出心裁，例如android oreo毛绒玩具、DIY 音箱、Android Thing的开发者kit（查了一下，价值人民币1000元左右）、特制电脑包等等……都是免费的，简直良心。</li>
+<li>交通有些不便利，离地铁较远；</li>
+</ol>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWA实现"><span class="toc-number">1.</span> <span class="toc-text">PWA实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWA-amp-AMP-❤️-中国"><span class="toc-number"></span> <span class="toc-text">PWA &amp; AMP ❤️ 中国</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWA"><span class="toc-number">1.</span> <span class="toc-text">PWA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">1.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#门槛"><span class="toc-number">1.2.</span> <span class="toc-text">门槛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工具（查看兼容）"><span class="toc-number">1.3.</span> <span class="toc-text">工具（查看兼容）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例：腾讯新闻"><span class="toc-number">1.4.</span> <span class="toc-text">示例：腾讯新闻</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMP"><span class="toc-number">2.</span> <span class="toc-text">AMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点-1"><span class="toc-number">2.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#国内生态"><span class="toc-number">2.2.</span> <span class="toc-text">国内生态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思考哪些页面更加适合amp"><span class="toc-number">2.3.</span> <span class="toc-text">思考哪些页面更加适合amp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与PWA的结合"><span class="toc-number">2.4.</span> <span class="toc-text">与PWA的结合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMP构造电商网站"><span class="toc-number">3.</span> <span class="toc-text">AMP构造电商网站</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#组成"><span class="toc-number">3.1.</span> <span class="toc-text">组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特点"><span class="toc-number">3.2.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哪些页面需要AMP"><span class="toc-number">3.3.</span> <span class="toc-text">哪些页面需要AMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建动态AMP"><span class="toc-number">3.4.</span> <span class="toc-text">创建动态AMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板"><span class="toc-number">3.5.</span> <span class="toc-text">模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PWA-amp-AMP"><span class="toc-number">3.6.</span> <span class="toc-text">PWA &amp; AMP</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&text=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&is_video=false&description=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2017上海谷歌开发者大会PWA &amp; AMP部分笔记&body=Check out this article: http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&title=2017上海谷歌开发者大会PWA &amp; AMP部分笔记"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/12/21/17-12-21-pwa-and-amp-in-2017-Shanghai-gdd/&name=2017上海谷歌开发者大会PWA &amp; AMP部分笔记&description=&lt;p&gt;点这里看完整视频（不过只有主会场）：&lt;a href=&quot;http://v.youku.com/v_show/id_XMzIyNjk3OTc4NA==.html?spm=a2h0k.8191407.0.0&amp;amp;from=s1.8-1-1.2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;谷歌开发者大会—在线播放—优酷网，视频高清在线观看&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developers.google.com/web/progressive-web-apps/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Progressive Web Apps  |  Web       |  Google Developers&lt;/a&gt;：PWA其实是google这几年一直在推的一个东西，国内其实是不太看好的。但是从官方的数据来看，其实PWA在国外的表现还是很漂亮的，对于出海应用来说，是一个很好的选择。而google推这个技术也不是口头说说，在国内这种特殊的环境下，他们跟进各大奇葩浏览器的兼容性，还是能感受到他们的真诚的。&lt;br&gt;现在servise worker也不是非常新的东西了，兼容性上来以后用的人也非常多。尤其是今年（2017），已经能看到许多相关的中文文档或者博客了。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.ampproject.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Accelerated Mobile Pages Project – AMP&lt;/a&gt;：相比之下，AMP在国内行走其实更加方便。虽然很不想按google这一套做，但是不得不承认是有很大效益的（明明都没有在生产上实践过你就瞎掰）。&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 2x
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '2x';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

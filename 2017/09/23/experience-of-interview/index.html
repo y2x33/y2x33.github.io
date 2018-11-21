@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="面试, 前端, 面试题, 笔试题, javascript, css">
+<meta name="keywords" content="前端,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试那些事">
+<meta property="og:url" content="http://y2x33.github.io/2017/09/23/experience-of-interview/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="面试, 前端, 面试题, 笔试题, javascript, css">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-11-13T03:51:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试那些事">
+<meta name="twitter:description" content="面试, 前端, 面试题, 笔试题, javascript, css">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>面试那些事</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/09/24/using-react-native-1/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/09/23/experience-of-interview/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&text=面试那些事"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&is_video=false&description=面试那些事"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=面试那些事&body=Check out this article: http://y2x33.github.io/2017/09/23/experience-of-interview/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&name=面试那些事&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-多年工作经验，但是……"><span class="toc-number">1.</span> <span class="toc-text">1. 多年工作经验，但是……</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-专业能力看似十分厉害，但是对前端……"><span class="toc-number">2.</span> <span class="toc-text">2. 专业能力看似十分厉害，但是对前端……</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-很明白套路，但是真实水平……"><span class="toc-number">3.</span> <span class="toc-text">3. 很明白套路，但是真实水平……</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-真的很有水平"><span class="toc-number">4.</span> <span class="toc-text">4. 真的很有水平</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        面试那些事
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-09-23T12:35:44.000Z" itemprop="datePublished">2017-09-23</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/前端/">前端</a>, <a class="tag-link" href="/tags/面试/">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>我大概正式入职一年不到就开始被抓去做面试官了。<br>其中一个原因是比我资历深的人，在我正式入职前后差不多都走了。不过这在非前端主导的创业公司，一两个人就能挑起业务大梁的情况下，估计也是很常见的现象。<br>写这篇文章不是为了炫技，只是为了记录自己作为菜鸟面试官的一些经历和经验。</p>
+<hr>
+<p>来面试的人大概分为以下几种：</p>
+<h4 id="1-多年工作经验，但是……"><a href="#1-多年工作经验，但是……" class="headerlink" title="1. 多年工作经验，但是……"></a>1. 多年工作经验，但是……</h4><p>工作经验写得满满当当，会的东西屈指可数。毕竟前端日新月异，跟一入行就是新世界的人相比，有些人可能才刚刚踏进新世界的大门。</p>
+<h4 id="2-专业能力看似十分厉害，但是对前端……"><a href="#2-专业能力看似十分厉害，但是对前端……" class="headerlink" title="2. 专业能力看似十分厉害，但是对前端……"></a>2. 专业能力看似十分厉害，但是对前端……</h4><p>成绩好像还不错，论文也发过几篇，主要的项目经验却大多是其他语言，前端相关的术语乱七八糟地分在各个地方，错误的拼写肉眼可见。你确定你要面前端？？</p>
+<h4 id="3-很明白套路，但是真实水平……"><a href="#3-很明白套路，但是真实水平……" class="headerlink" title="3. 很明白套路，但是真实水平……"></a>3. 很明白套路，但是真实水平……</h4><p>我入门前端的时候，还没有那么多入门文章。<br>现在大概稍微爱上网的人就知道去知乎上问如何前端入门，前端面试如何准备。<br>所以大概90%的人都能回答上来：</p>
+<ul>
+<li>position有哪些值，定位原点在哪里</li>
+<li>清除浮动有哪些方法，原理是啥（深入的还能说出个BFC来）</li>
+<li>盒模型说一说（再也不想说了哼）</li>
+<li>水平垂直居中怎么做，各个方法列举一下（太！多！了！）</li>
+<li>rem原理来一发（说上个根元素font-size就完事儿）</li>
+<li>js深拷贝来一发（一般说上个递归印象分就蹭蹭蹭了）</li>
+<li>原型链闭包（经典问题不考不是面试官）</li>
+<li>dom操作增删改查（有些人真的连这个都会错）</li>
+<li>性能优化来一发（…多了去了）</li>
+<li>es6特性说几个来听听（说是能说上来，你再深入试试？）<br>…</li>
+</ul>
+<p>这些概念问题已经大众到不是检验一个人水平如何，而是检验你是否会上网了。毕竟刷个一两天面试题，这些问题的出现频率就能让你看到背下。但到了真的写个常用布局、写个数组去重的地步，他们都可能写得乱七八糟。<br>实际上面的时候，这些问题问几个稍微考察一下即可，如果能答上来，建议问一下需要理解和实现的题目；如果大部分不能答上来，那就基本可以说再见了。<br>如果面试官问得问题都是这类大众问题，那么可能有两种原因：1. 他是新手（就是我）；2. 他们要招的人应该不用挑什么大活；</p>
+<h4 id="4-真的很有水平"><a href="#4-真的很有水平" class="headerlink" title="4. 真的很有水平"></a>4. 真的很有水平</h4><p>这样的人大概是套路之上的套路，肯德基中的战斗机（？？）。<br>他们知道你想要听的是什么，但是他们不但能给你正确答案，还能跟你侃侃而谈原理和源码，让你当场就忘记你还是个面试官。恩，稳住，然后认栽。</p>
+<hr>
+<p>面试的时候要注意：</p>
+<ol>
+<li>谨防套路，及时反套路（但不是指考很偏门的东西）；</li>
+<li>功课做足，自己的问题自己一定要了解、深入了解，不要被牵着鼻子走。自己不了解的问题还是尽量少问，问了你也不了解对方这方面的水平；</li>
+<li>面试者侃侃而谈的时候，分清楚他到底是真的了解，还是把话题带偏了；</li>
+<li>不要根据关键词打分！听上下文！</li>
+</ol>
+<p>之后再面试我会尝试：</p>
+<ol>
+<li>搜索引擎容易搜到的不多问，概念不多问</li>
+<li>类似于“输入一个url到页面渲染完毕发生了哪些事”这一类自由发挥但是考核到很多实现细节的题</li>
+<li>考察更多逻辑、算法、设计模式等等</li>
+</ol>
+<p>等等……<br>其实很多问题都能用笔试来解决啊！！</p>
+<hr>
+<p>最后，感谢一开始带我飞的leader</p>
+<blockquote>
+<p>面试很有趣的~   </p>
+</blockquote>
+<p>和今天一起面试的面试老司机，有几道题真的醍醐灌顶。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-多年工作经验，但是……"><span class="toc-number">1.</span> <span class="toc-text">1. 多年工作经验，但是……</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-专业能力看似十分厉害，但是对前端……"><span class="toc-number">2.</span> <span class="toc-text">2. 专业能力看似十分厉害，但是对前端……</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-很明白套路，但是真实水平……"><span class="toc-number">3.</span> <span class="toc-text">3. 很明白套路，但是真实水平……</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-真的很有水平"><span class="toc-number">4.</span> <span class="toc-text">4. 真的很有水平</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/09/23/experience-of-interview/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&text=面试那些事"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&is_video=false&description=面试那些事"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=面试那些事&body=Check out this article: http://y2x33.github.io/2017/09/23/experience-of-interview/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&title=面试那些事"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/09/23/experience-of-interview/&name=面试那些事&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 2x
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '2x';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

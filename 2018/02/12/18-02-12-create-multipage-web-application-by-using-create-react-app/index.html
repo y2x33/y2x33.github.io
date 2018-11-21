@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="本文参考了修改create-react-app支持多入口这篇文章，并且采用了相同原理和步骤，但是通过函数生成配置，减少了代码冗余，便于后期添加入口。">
+<meta name="keywords" content="前端,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 create-react-app 配置 react 多页面应用">
+<meta property="og:url" content="http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="本文参考了修改create-react-app支持多入口这篇文章，并且采用了相同原理和步骤，但是通过函数生成配置，减少了代码冗余，便于后期添加入口。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-18T11:57:15.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 create-react-app 配置 react 多页面应用">
+<meta name="twitter:description" content="本文参考了修改create-react-app支持多入口这篇文章，并且采用了相同原理和步骤，但是通过函数生成配置，减少了代码冗余，便于后期添加入口。">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>使用 create-react-app 配置 react 多页面应用</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/02/12/18-02-12-from-react-to-reactnative/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/01/30/18-01-30-sources-of-country/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&text=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&is_video=false&description=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 create-react-app 配置 react 多页面应用&body=Check out this article: http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&name=使用 create-react-app 配置 react 多页面应用&description=&lt;p&gt;本文参考了&lt;a href=&quot;http://imshuai.com/create-react-app-multiple-entry-points/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;修改create-react-app支持多入口&lt;/a&gt;这篇文章，并且采用了相同原理和步骤，但是通过函数生成配置，减少了代码冗余，便于后期添加入口。&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#新建creat-react-app"><span class="toc-number">1.</span> <span class="toc-text">新建creat-react-app</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取webpack配置供后续修改"><span class="toc-number">2.</span> <span class="toc-text">获取webpack配置供后续修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改资源（src）结构"><span class="toc-number">3.</span> <span class="toc-text">修改资源（src）结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改paths-js"><span class="toc-number">4.</span> <span class="toc-text">修改paths.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改entry和output参数"><span class="toc-number">5.</span> <span class="toc-text">修改entry和output参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改HtmlWebpackPlugin"><span class="toc-number">6.</span> <span class="toc-text">修改HtmlWebpackPlugin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改Webpack-Dev-Server配置"><span class="toc-number">7.</span> <span class="toc-text">修改Webpack Dev Server配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#捉虫"><span class="toc-number">8.</span> <span class="toc-text">捉虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后续"><span class="toc-number">9.</span> <span class="toc-text">后续</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        使用 create-react-app 配置 react 多页面应用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-02-12T06:36:25.000Z" itemprop="datePublished">2018-02-12</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/前端/">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>本文参考了<a href="http://imshuai.com/create-react-app-multiple-entry-points/" target="_blank" rel="noopener">修改create-react-app支持多入口</a>这篇文章，并且采用了相同原理和步骤，但是通过函数生成配置，减少了代码冗余，便于后期添加入口。</p>
+<a id="more"></a>
+<h2 id="新建creat-react-app"><a href="#新建creat-react-app" class="headerlink" title="新建creat-react-app"></a>新建creat-react-app</h2><p>安装并执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br><span class="line">create-react-app my-app</span><br><span class="line">cd my-app</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取webpack配置供后续修改"><a href="#获取webpack配置供后续修改" class="headerlink" title="获取webpack配置供后续修改"></a>获取webpack配置供后续修改</h2><p><a href="https://github.com/facebookincubator/create-react-app#converting-to-a-custom-setup" target="_blank" rel="noopener">官方关于eject的说明</a></p>
+<blockquote>
+<p>这一步骤是不可逆的</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run eject</span><br></pre></td></tr></table></figure>
+<h2 id="修改资源（src）结构"><a href="#修改资源（src）结构" class="headerlink" title="修改资源（src）结构"></a>修改资源（src）结构</h2><p>原来的资源是全部放在一个文件夹下的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">|-- App.css</span><br><span class="line">|-- App.js</span><br><span class="line">|-- index.js</span><br><span class="line">|-- …</span><br></pre></td></tr></table></figure></p>
+<p>加上自己需要的多个入口，可以按照自己喜欢的方式组织。<br>按照我的组织方式，增加了两个入口文件夹，分别是key1和key2，所以真正的入口路径（<code>entry</code>）分别是<code>/src/key1/index.js</code>和<code>/src/key2/index.js</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">|-- key1</span><br><span class="line">    |-- index.js</span><br><span class="line">    |-- …</span><br><span class="line">|-- key2</span><br><span class="line">    |-- index.js</span><br><span class="line">    |-- …</span><br><span class="line">|--  …</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改paths-js"><a href="#修改paths-js" class="headerlink" title="修改paths.js"></a>修改<code>paths.js</code></h2><p>这个js定义了各种资源所在的路径，原来的入口<code>appIndexJs</code>是一个字符串路径，代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// old</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  appIndexJs: resolveApp(<span class="string">'src/index.js'</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>改成数组：（这里只使用各个入口的id，后续的路由加工会在其他文件进行）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// appIndexJs: resolveApp('src/index.js'),</span></span><br><span class="line">  appArr: [</span><br><span class="line">    <span class="string">'key1'</span>,</span><br><span class="line">    <span class="string">'key2'</span></span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改entry和output参数"><a href="#修改entry和output参数" class="headerlink" title="修改entry和output参数"></a>修改entry和output参数</h2><p>在<code>webpack.config.dev.js</code>和<code>webpack.config.prod.js</code>配置中都有这两个参数，均需要修改。<br>原来的代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">entry: [</span><br><span class="line">    <span class="built_in">require</span>.resolve(<span class="string">'./polyfills'</span>),</span><br><span class="line">    <span class="built_in">require</span>.resolve(<span class="string">'react-dev-utils/webpackHotDevClient'</span>),</span><br><span class="line">    paths.appIndexJs, <span class="comment">//数组最后一个值是真正的入口</span></span><br><span class="line">],</span><br><span class="line">output: &#123;</span><br><span class="line">  filename: <span class="string">'static/js/bundle.js'</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>改为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*生成entry对象的方法*/</span></span><br><span class="line"><span class="keyword">const</span> generatedEntry = <span class="function">(<span class="params">(</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> entryObj = &#123;&#125;;</span><br><span class="line">  paths.appArr.map(<span class="function"><span class="params">app</span>=&gt;</span>&#123;</span><br><span class="line">    entryObj[app] = [                                         <span class="comment">// 注意根据原有的配置修改相关参数</span></span><br><span class="line">      <span class="built_in">require</span>.resolve(<span class="string">'./polyfills'</span>),                         <span class="comment">// copy 原入口数组</span></span><br><span class="line">      <span class="built_in">require</span>.resolve(<span class="string">'react-dev-utils/webpackHotDevClient'</span>), <span class="comment">// copy 原入口数组</span></span><br><span class="line">      <span class="string">`<span class="subst">$&#123;paths.appSrc&#125;</span>/<span class="subst">$&#123;app&#125;</span>/index.js`</span>,                      <span class="comment">// 相应key的路径，需要跟你的文件架构保持一致</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> entryObj;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// ... </span></span><br><span class="line"></span><br><span class="line">entry: generatedEntry,</span><br><span class="line">output: &#123;</span><br><span class="line">  filename: <span class="string">'static/js/[name].bundle.js'</span>,  <span class="comment">//生成时，此处的name会分别填充为上一步中的key1, key2</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改HtmlWebpackPlugin"><a href="#修改HtmlWebpackPlugin" class="headerlink" title="修改HtmlWebpackPlugin"></a>修改HtmlWebpackPlugin</h2><p>这个插件的作用是生成html并注入<code>&lt;script&gt;</code>和<code>&lt;style&gt;</code><br>同上，在<code>webpack.config.dev.js</code>和<code>webpack.config.prod.js</code>都需要修改，原理也大同小异。<br>依然以<code>webpack.config.dev.js</code>为例。<br>原代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">    inject: <span class="literal">true</span>,</span><br><span class="line">    template: paths.appHtml,</span><br><span class="line">  &#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>根据多入口生成多个<code>HtmlWebpackPlugin</code>实例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> generatedHTML = <span class="function">(<span class="params">(</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> htmlArr = [];</span><br><span class="line">  paths.appArr.map(<span class="function"><span class="params">app</span>=&gt;</span>&#123;</span><br><span class="line">    htmlArr.push(</span><br><span class="line">      <span class="keyword">new</span> HtmlWebpackPlugin(&#123;    <span class="comment">// 注意根据原有的配置修改相关参数</span></span><br><span class="line">        inject: <span class="literal">true</span>,            <span class="comment">// 跟原有数组的配置保持一致</span></span><br><span class="line">        template: paths.appHtml, <span class="comment">// 这里用的是同一个模板，可以让不同html使用不同模板</span></span><br><span class="line">        chunks: [app],           <span class="comment">// 必要，指明注入的 script 对应的是哪个 entry</span></span><br><span class="line">        filename: <span class="string">`<span class="subst">$&#123;app&#125;</span>.html`</span>, <span class="comment">// 必要，重命名 html</span></span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> htmlArr;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">plugins: [</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  ...generatedHTML,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改Webpack-Dev-Server配置"><a href="#修改Webpack-Dev-Server配置" class="headerlink" title="修改Webpack Dev Server配置"></a>修改Webpack Dev Server配置</h2><p>需要修改的原因引用了开头的参考文章（原文中的参考链接已失效，下面的引用更新了链接）——</p>
+<blockquote>
+<p>上述配置做完后，理论就可以打包出多入口的版本；但使用npm start启动后，发现无论输入/index.html还是/admin.html，好像都是和原来/index.html显示一样的内容。甚至输入显然不存在的/xxxx.html，也显示为/index.html的内容。<br>这种现象，初步判断是HTTP服务器把所有请求重定向到了/index.html。对于单页应用，这种做法是没有问题的（本来就一个页面）；但我们新增的/admin.html就可以访问了。<br>参考<a href="https://doc.webpack-china.org/configuration/dev-server/#devserver-historyapifallback" target="_blank" rel="noopener">官方文档The historyApiFallback option</a>，发现是webpack dev server的问题，还要额外做一些配置，需修改/config/webpackDevServer.config.js。</p>
+</blockquote>
+<p><code>webpackDevServer.config.js</code>中的原代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">historyApiFallback: &#123;</span><br><span class="line">  disableDotRule: <span class="literal">true</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>修改后：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> rewritesPath = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> pathArr = [];</span><br><span class="line">  paths.appArr.map(<span class="function"><span class="params">app</span>=&gt;</span>&#123;</span><br><span class="line">    pathArr.push(</span><br><span class="line">      &#123;<span class="attr">from</span>: <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'^\/'</span> + app), <span class="attr">to</span>: <span class="string">`build/<span class="subst">$&#123;app&#125;</span>.html`</span>&#125; </span><br><span class="line">      <span class="comment">// 生成示例：&#123;from: /^\/key1/, to: 'build/key1.html'&#125;</span></span><br><span class="line">    )</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> pathArr;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">historyApiFallback: &#123;</span><br><span class="line">  disableDotRule: <span class="literal">true</span>,</span><br><span class="line">  rewrites: rewritesPath,  <span class="comment">//在本地server重定向的映射表</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<h2 id="捉虫"><a href="#捉虫" class="headerlink" title="捉虫"></a>捉虫</h2><p>终于改好了，执行一下！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn start</span><br></pre></td></tr></table></figure>
+<p>竟然报错(╯‵□′)╯︵┻━┻<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">path.js:7</span><br><span class="line">    throw new TypeError(<span class="string">'Path must be a string. Received '</span> + inspect(path));</span><br><span class="line">    ^</span><br><span class="line"></span><br><span class="line">TypeError: Path must be a string. Received undefined</span><br><span class="line">    at assertPath (path.js:7:11)</span><br><span class="line">    at Object.dirname (path.js:1324:5)</span><br><span class="line">    at checkRequiredFiles (/Users/xinxin/v3/node_modules/react-dev-utils/checkRequiredFiles.js:23:24)</span><br><span class="line">    at Object.&lt;anonymous&gt; (/Users/xinxin/v3/scripts/start.js:38:6)</span><br><span class="line">    at Module._compile (module.js:573:32)</span><br><span class="line">    at Object.Module._extensions..js (module.js:582:10)</span><br><span class="line">    at Module.load (module.js:490:32)</span><br><span class="line">    at tryModuleLoad (module.js:449:12)</span><br><span class="line">    at Function.Module._load (module.js:441:3)</span><br><span class="line">    at Module.runMain (module.js:607:10)</span><br><span class="line">    at run (bootstrap_node.js:382:7)</span><br><span class="line">    at startup (bootstrap_node.js:137:9)</span><br><span class="line">    at bootstrap_node.js:497:3</span><br></pre></td></tr></table></figure></p>
+<p>一开始还以为是生成的entry有问题，查了半天。<br>后来发现是由于我注释了<code>paths.appIndexJs</code>，而<code>start.js</code>和<code>build.js</code>都引用到了它用来防止文件漏缺。<br>（下次注释前一定要先在全局搜索一遍！）<br>原代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Warn and crash if required files are missing</span></span><br><span class="line"><span class="keyword">if</span> (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) &#123;</span><br><span class="line">  process.exit(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>都改成：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Warn and crash if required files are missing</span></span><br><span class="line"><span class="keyword">if</span> (!checkRequiredFiles([paths.appHtml, ...paths.appArrIndexJs])) &#123;</span><br><span class="line">  process.exit(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>并在<code>paths.js</code>中做如下修改：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> appArr = [ </span><br><span class="line">  <span class="string">'key1'</span>,</span><br><span class="line">  <span class="string">'key2'</span>,</span><br><span class="line">  <span class="comment">//后续在此处添加新的入口即可</span></span><br><span class="line">];</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  appArr,</span><br><span class="line">  appArrIndexJs: <span class="built_in">Array</span>.from(appArr, app =&gt; resolveApp(<span class="string">`src/<span class="subst">$&#123;app&#125;</span>/index.js`</span>)), <span class="comment">// 获取所有入口文件path</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><ul>
+<li>注意也跑一遍<code>yarn build</code>以验证<code>webpack.config.prod.js</code>脚本修改无误。</li>
+<li>后续增加入口只要修改<code>paths.js</code>中的<code>appArr</code>即可</li>
+</ul>
+<hr>
+<p>本文完成与2018年1月，请参考者注意时效性。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#新建creat-react-app"><span class="toc-number">1.</span> <span class="toc-text">新建creat-react-app</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取webpack配置供后续修改"><span class="toc-number">2.</span> <span class="toc-text">获取webpack配置供后续修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改资源（src）结构"><span class="toc-number">3.</span> <span class="toc-text">修改资源（src）结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改paths-js"><span class="toc-number">4.</span> <span class="toc-text">修改paths.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改entry和output参数"><span class="toc-number">5.</span> <span class="toc-text">修改entry和output参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改HtmlWebpackPlugin"><span class="toc-number">6.</span> <span class="toc-text">修改HtmlWebpackPlugin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改Webpack-Dev-Server配置"><span class="toc-number">7.</span> <span class="toc-text">修改Webpack Dev Server配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#捉虫"><span class="toc-number">8.</span> <span class="toc-text">捉虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后续"><span class="toc-number">9.</span> <span class="toc-text">后续</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&text=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&is_video=false&description=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 create-react-app 配置 react 多页面应用&body=Check out this article: http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&title=使用 create-react-app 配置 react 多页面应用"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/&name=使用 create-react-app 配置 react 多页面应用&description=&lt;p&gt;本文参考了&lt;a href=&quot;http://imshuai.com/create-react-app-multiple-entry-points/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;修改create-react-app支持多入口&lt;/a&gt;这篇文章，并且采用了相同原理和步骤，但是通过函数生成配置，减少了代码冗余，便于后期添加入口。&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 2x
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '2x';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

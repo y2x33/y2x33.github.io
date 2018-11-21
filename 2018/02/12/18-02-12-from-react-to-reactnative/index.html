@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="之前团队分享的时候讲了这个主题，点这里查看slide（含图片）。 react只是提供了一个VM的框架，react native则在react的基础上，封装了原生的组件，以及热更新的方法。因此，对一个写惯了css样式的前端工程师来说，rn充满了限制，但是跟如同一张白纸可以随意涂鸦的react相比，react native 自带各种官方轮子，在一定程度上十分便利。 本文讨论react和react na">
+<meta name="keywords" content="前端,react,react native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 react 到 react native">
+<meta property="og:url" content="http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="之前团队分享的时候讲了这个主题，点这里查看slide（含图片）。 react只是提供了一个VM的框架，react native则在react的基础上，封装了原生的组件，以及热更新的方法。因此，对一个写惯了css样式的前端工程师来说，rn充满了限制，但是跟如同一张白纸可以随意涂鸦的react相比，react native 自带各种官方轮子，在一定程度上十分便利。 本文讨论react和react na">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-03-06T07:47:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从 react 到 react native">
+<meta name="twitter:description" content="之前团队分享的时候讲了这个主题，点这里查看slide（含图片）。 react只是提供了一个VM的框架，react native则在react的基础上，封装了原生的组件，以及热更新的方法。因此，对一个写惯了css样式的前端工程师来说，rn充满了限制，但是跟如同一张白纸可以随意涂鸦的react相比，react native 自带各种官方轮子，在一定程度上十分便利。 本文讨论react和react na">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>从 react 到 react native</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/08/29/18-08-29-about-service-worker-md/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/02/12/18-02-12-create-multipage-web-application-by-using-create-react-app/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&text=从 react 到 react native"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&is_video=false&description=从 react 到 react native"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=从 react 到 react native&body=Check out this article: http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&name=从 react 到 react native&description=&lt;p&gt;之前团队分享的时候讲了这个主题，&lt;a href=&quot;http://slides.com/esthery/deck&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点这里查看slide&lt;/a&gt;（含图片）。&lt;/p&gt;
+&lt;p&gt;react只是提供了一个VM的框架，react native则在react的基础上，封装了原生的组件，以及热更新的方法。因此，对一个写惯了css样式的前端工程师来说，rn充满了限制，但是跟如同一张白纸可以随意涂鸦的react相比，react native 自带各种官方轮子，在一定程度上十分便利。&lt;/p&gt;
+&lt;p&gt;本文讨论react和react native的区别，不仅仅是语法上的，其实也是纯web、以webview为基础的混合应用以及rn为基础的混合应用的一些区别。&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何安装"><span class="toc-number">1.</span> <span class="toc-text">如何安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何调试"><span class="toc-number">2.</span> <span class="toc-text">如何调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样式写法"><span class="toc-number">3.</span> <span class="toc-text">样式写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样式布局"><span class="toc-number">4.</span> <span class="toc-text">样式布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图片引用"><span class="toc-number">5.</span> <span class="toc-text">图片引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#背景图片"><span class="toc-number">6.</span> <span class="toc-text">背景图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动画"><span class="toc-number">7.</span> <span class="toc-text">动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#点击事件"><span class="toc-number">8.</span> <span class="toc-text">点击事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跟原生的交互"><span class="toc-number">9.</span> <span class="toc-text">跟原生的交互</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        从 react 到 react native
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-02-12T07:50:11.000Z" itemprop="datePublished">2018-02-12</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-native/">react native</a>, <a class="tag-link" href="/tags/前端/">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>之前团队分享的时候讲了这个主题，<a href="http://slides.com/esthery/deck" target="_blank" rel="noopener">点这里查看slide</a>（含图片）。</p>
+<p>react只是提供了一个VM的框架，react native则在react的基础上，封装了原生的组件，以及热更新的方法。因此，对一个写惯了css样式的前端工程师来说，rn充满了限制，但是跟如同一张白纸可以随意涂鸦的react相比，react native 自带各种官方轮子，在一定程度上十分便利。</p>
+<p>本文讨论react和react native的区别，不仅仅是语法上的，其实也是纯web、以webview为基础的混合应用以及rn为基础的混合应用的一些区别。</p>
+<a id="more"></a>
+<h2 id="如何安装"><a href="#如何安装" class="headerlink" title="如何安装"></a>如何安装</h2><p><code>react</code>：<a href="https://github.com/facebook/create-react-app" target="_blank" rel="noopener">create-react-app</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br><span class="line">create-react-app my-app</span><br><span class="line"></span><br><span class="line">cd my-app</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p><code>react native</code>：<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">react-native-cli</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g yarn react-native-cli</span><br><span class="line">react-native init AwesomeProject</span><br><span class="line"></span><br><span class="line">cd AwesomeProject</span><br><span class="line">react-native run-android</span><br></pre></td></tr></table></figure>
+<h2 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h2><p><code>react</code>：热替换，react 的浏览器插件，redux浏览器插件</p>
+<p><code>react native</code>：</p>
+<ol>
+<li>摇一摇 </li>
+<li>在调试页面chrome F12（支持打断点、查看log，但是不能查看app结构）</li>
+<li>0.43以上版本能下载<code>react-devtools</code>，可以查看app结果和props、styles，基本交互同react浏览器插件。 <a href="https://reactnative.cn/docs/0.51/debugging.html#content" target="_blank" rel="noopener">调试 - React Native 中文网</a></li>
+</ol>
+<h2 id="样式写法"><a href="#样式写法" class="headerlink" title="样式写法"></a>样式写法</h2><p><code>react</code>，一般通过className引用普通css样式，行内则使用驼峰命名法</p>
+<p><a href="https://www.npmjs.com/package/classnames" target="_blank" rel="noopener">classnames</a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">"menu navigation-menu"</span>&gt;</span>Menu<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://zhenyong.github.io/react/tips/inline-styles.html" target="_blank" rel="noopener">Inline Styles | React</a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> divStyle = &#123;</span><br><span class="line">  color: <span class="string">'white'</span>,</span><br><span class="line">  backgroundImage: <span class="string">'url('</span> + imgUrl + <span class="string">')'</span>,</span><br><span class="line">  WebkitTransition: <span class="string">'all'</span>, <span class="comment">// note the capital 'W' here</span></span><br><span class="line">  msTransition: <span class="string">'all'</span> <span class="comment">// 'ms' is the only lowercase vendor prefix</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;divStyle&#125;</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>, mountNode);</span><br></pre></td></tr></table></figure></p>
+<p><code>react native</code>：无论是行内还是引用都是驼峰命名，虽然写法跟css大多一样，但不是真的css样式。<a href="https://reactnative.cn/docs/0.32/stylesheet.html#content" target="_blank" rel="noopener">官方说明</a>。</p>
+<h2 id="样式布局"><a href="#样式布局" class="headerlink" title="样式布局"></a>样式布局</h2><p><code>react</code>：传统的css布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">position</span><br><span class="line">display（flex，grid，table...）</span><br></pre></td></tr></table></figure>
+<p>相比之下更为灵活</p>
+<p><code>react native</code>：</p>
+<ol>
+<li>每个组件自带<code>relative</code>特性，可以声明为<code>absolute</code></li>
+<li>主要使用<code>flex</code>进行布局 </li>
+</ol>
+<h2 id="图片引用"><a href="#图片引用" class="headerlink" title="图片引用"></a>图片引用</h2><p><code>react</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img className=<span class="string">"preview-image"</span> src=&#123;source&#125; onClick=&#123;<span class="keyword">this</span>.loadImage.bind(<span class="keyword">this</span>)&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p><code>react native</code></p>
+<p><strong>引用网络资源</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source=&#123;&#123;<span class="attr">uri</span>: <span class="string">`http://<span class="subst">$&#123;GEMINI_STORE.config.cdnHostname&#125;</span>/international/shop/v5870/default/resource/images/icons/customize_icon_new.png`</span>&#125;&#125;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>引用本地资源</strong></p>
+<blockquote>
+<p>如果你在编写一个混合App（一部分UI使用React Native，而另一部分使用平台原生代码），也可以使用已经打包到App中的图片资源（以拖拽的方式放置在Xcode的asset类目中，或是放置在Android的drawable目录里）。注意此时只使用文件名，不带路径也不带后缀</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image resizeMode=<span class="string">'stretch'</span></span><br><span class="line">       source=&#123;&#123;<span class="attr">uri</span>: <span class="string">'icon'</span>&#125;&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>将本地资源一起打包</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'./img/icon.png'</span>)&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意：在web中，如果我们不规定图片的尺寸，图片在加载前不占空间，之后按自身大小显示；但是在rn中，为了防止这种情况造成的视图抖动，官方规定需要提前赋予图片尺寸（除非是require方式加载图片），否则图片无法显示。</p>
+<h2 id="背景图片"><a href="#背景图片" class="headerlink" title="背景图片"></a>背景图片</h2><p><code>react</code>:css中的背景图片</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.container &#123; //以图片中心为基准进行原比例缩放，以覆盖整个背景</span><br><span class="line">    background-image: url("../images/bg.webp");</span><br><span class="line">    <span class="selector-tag">background-position</span>: 50% 50%;</span><br><span class="line">    <span class="selector-tag">background-size</span>: <span class="selector-tag">cover</span>;</span><br><span class="line">    <span class="selector-tag">background-repeat</span>: <span class="selector-tag">no-repeat</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以调整<code>background-position</code>、<code>background-size</code>、<code>background-repeat</code>等值来达到背景图片的不同自适应效果和位置，非常灵活。</p>
+<p><code>react native</code>:直接用Image组件实现。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image style=&#123;styles.bg&#125;</span><br><span class="line">       source=&#123;&#123;<span class="attr">uri</span>: <span class="keyword">this</span>.bgImg&#125;&#125;</span><br><span class="line">       resizeMode=&#123;<span class="string">'stretch'</span>&#125;&gt;</span><br><span class="line">  &lt;Text style=&#123;styles.text&#125;&gt;&#123;<span class="string">'more'</span>&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>Image&gt;</span><br></pre></td></tr></table></figure></p>
+<p>但是由于Image组件做背景时有各种兼容问题，比如border-radius失效等等。所以我们也可以采用假背景——<strong>将图片作为子组件，但是使用absolute定位，高宽与容器相同</strong>，从而达到背景图的效果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;View style=&#123;styles.scrollContainer&#125;&gt;</span><br><span class="line">  &lt;Image source=&#123;&#123;<span class="attr">uri</span>: <span class="keyword">this</span>.bgImg&#125;&#125;</span><br><span class="line">         resizeMode=&#123;<span class="string">'stretch'</span>&#125;</span><br><span class="line">         style=&#123;styles.bg&#125; /&gt;</span><br><span class="line">  &lt;View style=&#123;styles.contentWrap&#125;&gt;</span><br><span class="line">    &#123;<span class="keyword">this</span>.renderTitle()&#125;</span><br><span class="line">    &#123;dataList.map(<span class="keyword">this</span>.renderItem.bind(<span class="keyword">this</span>))&#125;</span><br><span class="line">  &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>View&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  scrollContainer: &#123;</span><br><span class="line">    width: w,</span><br><span class="line">    height: h,</span><br><span class="line">  &#125;,<span class="attr">bg</span>: &#123;</span><br><span class="line">    width: w,</span><br><span class="line">    height: h,</span><br><span class="line">    position: <span class="string">'absolute'</span>,</span><br><span class="line">    left: <span class="number">0</span>,</span><br><span class="line">    borderRadius: <span class="number">2</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>官方也有类似的暂代方案：<a href="https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageBackground.js" target="_blank" rel="noopener">ImageBackground</a>，在Image组件的兼容问题未解决之前，可以使用这个代替。</p>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><code>react</code>：</p>
+<ol>
+<li>css动画，处理简单动画和交互</li>
+<li>js动画，流程上较复杂的动画</li>
+<li>cavas或svg，涉及各种几何变换的超复杂动画</li>
+</ol>
+<p><code>react native</code>：</p>
+<ol>
+<li>Animated，适用于各种复杂动画，性能很好</li>
+<li>LayoutAnimation，用于更新flexbox布局和元素本身高宽变化，使用范围有限但是性能更高-</li>
+</ol>
+<h2 id="点击事件"><a href="#点击事件" class="headerlink" title="点击事件"></a>点击事件</h2><p><code>react</code>：任何组件都可以绑定onClick事件</p>
+<p><code>react native</code>：需要用TouchableXX组件接收点击事件，Touchable家族有如下组件——<br>TouchableOpacity：透明度改变<br>TouchableHighlight：背景颜色和透明度改变<br>TouchableNativeFeedback：在安卓上，有涟漪效果<br>TouchableWithoutFeedback：不显示任何视觉反馈<br>由于处理点击事件和点击时的交互都会占用js资源，会导致交互样式掉帧。需要在处理事件时添加300ms时延，<strong>并在unmount时清除</strong>——</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">handleClick() &#123;</span><br><span class="line">  <span class="keyword">this</span>.clickTimeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">  &#125;, <span class="number">300</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="跟原生的交互"><a href="#跟原生的交互" class="headerlink" title="跟原生的交互"></a>跟原生的交互</h2><p>就不从原理层面上说明了，实际上应该是react native实现了跟webview差不多的解释器</p>
+<p><code>react</code>：基于webview</p>
+<p>参考：<a href="http://blog.csdn.net/carson_ho/article/details/64904691" target="_blank" rel="noopener">Android：你要的WebView与 JS 交互方式 都在这里了 - CSDN博客</a></p>
+<blockquote>
+<p>对于Android调用JS代码的方法有2种： </p>
+<ol>
+<li>通过WebView的loadUrl（） </li>
+<li>通过WebView的evaluateJavascript（）</li>
+</ol>
+<p>对于JS调用Android代码的方法有3种： </p>
+<ol>
+<li>通过WebView的addJavascriptInterface（）进行对象映射 </li>
+<li>通过 WebViewClient 的shouldOverrideUrlLoading ()方法回调拦截 url </li>
+<li>通过 WebChromeClient 的onJsAlert()、onJsConfirm()、onJsPrompt（）方法回调拦截JS对话框alert()、confirm()、prompt（） 消息</li>
+</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.webviewSelected = <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="comment">// 客户端调用js代码，在离开该webview时执行</span></span><br><span class="line">  AHandler.foo();<span class="comment">// 通过js调用客户端代码</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>react native</code>：<br>参考：<a href="http://www.lcode.org/react-native-android/" target="_blank" rel="noopener">React Native与Android原生通信交互详情 | 江清清的技术专栏</a><br>1.RCTDeviceEventEmitter 事件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; DeviceEventEmitter&#125; = ReactNative;</span><br><span class="line"></span><br><span class="line">DeviceEventEmitter.addListener(<span class="string">'event_name'</span>, <span class="keyword">this</span>.handleEvent);</span><br></pre></td></tr></table></figure>
+<p>2和3在安卓上的实现相似。客户端继承ReactContextBaseJavaModule定义方法，前端引用react-native的NativeModules模块，继而调用客户端定义的module<br>2.Callback 回调</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NativeModules &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="keyword">const</span> NativeModule = NativeModules.NativeModule;</span><br><span class="line"></span><br><span class="line">NativeModule.foo(</span><br><span class="line">  <span class="built_in">JSON</span>.stringify(data),</span><br><span class="line">  () =&gt; &#123;<span class="comment">// do something&#125;,</span></span><br><span class="line">  (err) =&gt; &#123; <span class="comment">// do something&#125;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>3.Promise 回调</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NativeModules &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="keyword">const</span> NativeClientInfo = NativeModules.NativeModule;</span><br><span class="line">NativeModule.foo(<span class="string">'xx'</span>).then(<span class="function"><span class="params">v</span> =&gt;</span> &#123;</span><br><span class="line">  bar(v);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何安装"><span class="toc-number">1.</span> <span class="toc-text">如何安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何调试"><span class="toc-number">2.</span> <span class="toc-text">如何调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样式写法"><span class="toc-number">3.</span> <span class="toc-text">样式写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样式布局"><span class="toc-number">4.</span> <span class="toc-text">样式布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图片引用"><span class="toc-number">5.</span> <span class="toc-text">图片引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#背景图片"><span class="toc-number">6.</span> <span class="toc-text">背景图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动画"><span class="toc-number">7.</span> <span class="toc-text">动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#点击事件"><span class="toc-number">8.</span> <span class="toc-text">点击事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跟原生的交互"><span class="toc-number">9.</span> <span class="toc-text">跟原生的交互</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&text=从 react 到 react native"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&is_video=false&description=从 react 到 react native"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=从 react 到 react native&body=Check out this article: http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&title=从 react 到 react native"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/02/12/18-02-12-from-react-to-reactnative/&name=从 react 到 react native&description=&lt;p&gt;之前团队分享的时候讲了这个主题，&lt;a href=&quot;http://slides.com/esthery/deck&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点这里查看slide&lt;/a&gt;（含图片）。&lt;/p&gt;
+&lt;p&gt;react只是提供了一个VM的框架，react native则在react的基础上，封装了原生的组件，以及热更新的方法。因此，对一个写惯了css样式的前端工程师来说，rn充满了限制，但是跟如同一张白纸可以随意涂鸦的react相比，react native 自带各种官方轮子，在一定程度上十分便利。&lt;/p&gt;
+&lt;p&gt;本文讨论react和react native的区别，不仅仅是语法上的，其实也是纯web、以webview为基础的混合应用以及rn为基础的混合应用的一些区别。&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 2x
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '2x';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

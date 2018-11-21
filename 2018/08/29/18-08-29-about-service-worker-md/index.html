@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="简介什么是 service worker?简单来说，service worker = worker + 离线缓存。">
+<meta name="keywords" content="性能,service worker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="走进 service worker">
+<meta property="og:url" content="http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="简介什么是 service worker?简单来说，service worker = worker + 离线缓存。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/ECAB89EB-B47E-449A-B358-4E602429FC7E.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/795BE496-DEB2-47D5-A464-6E8A5C7310B9.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/1B7F014A-B1A7-4F62-9892-26586077416B.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/3C0AF5D3-090A-4626-BE24-7B242CB418B3.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/26779190-B8CF-4037-884F-2FA14CA6D342.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/F6CE51D9-6CAA-4D57-A4F1-04E1C50E613F.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/F1C1F9A3-FC80-4260-9126-B9695B78B11B.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/7ADC17E8-B485-46E2-AE03-564FF5DAF805.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/3C8B85A0-AFFA-4AAE-A172-499496C87884.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/428E5047-9339-46DC-AA17-57EF0B276C3D.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/9A55BB81-62BA-4872-A685-E23AA627E86E.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/AA646AB6-50BB-4987-97A3-BD8015D1E55E.png">
+<meta property="og:image" content="http://blogx-1255641342.picsh.myqcloud.com/008723BB-C44D-49EA-920A-D6DAC0D30CBC.png">
+<meta property="og:updated_time" content="2018-11-19T12:04:59.598Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="走进 service worker">
+<meta name="twitter:description" content="简介什么是 service worker?简单来说，service worker = worker + 离线缓存。">
+<meta name="twitter:image" content="http://blogx-1255641342.picsh.myqcloud.com/ECAB89EB-B47E-449A-B358-4E602429FC7E.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>走进 service worker</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/02/12/18-02-12-from-react-to-reactnative/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&text=走进 service worker"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&is_video=false&description=走进 service worker"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=走进 service worker&body=Check out this article: http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&name=走进 service worker&description=&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;h3 id=&quot;什么是-service-worker&quot;&gt;&lt;a href=&quot;#什么是-service-worker&quot; class=&quot;headerlink&quot; title=&quot;什么是 service worker?&quot;&gt;&lt;/a&gt;什么是 service worker?&lt;/h3&gt;&lt;p&gt;简单来说，service worker = worker + 离线缓存。&lt;br&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是-service-worker"><span class="toc-number">1.1.</span> <span class="toc-text">什么是 service worker?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖"><span class="toc-number">1.2.</span> <span class="toc-text">依赖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生命周期"><span class="toc-number">2.1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件"><span class="toc-number">2.2.</span> <span class="toc-text">事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单例子看看流程"><span class="toc-number">3.</span> <span class="toc-text">简单例子看看流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何调试"><span class="toc-number">4.</span> <span class="toc-text">如何调试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Application-service-worker"><span class="toc-number">4.0.1.</span> <span class="toc-text">Application - service worker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Network"><span class="toc-number">4.0.2.</span> <span class="toc-text">Network</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Application-Cache-Storage"><span class="toc-number">4.0.3.</span> <span class="toc-text">Application - Cache Storage</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存策略"><span class="toc-number">5.</span> <span class="toc-text">缓存策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装时缓存"><span class="toc-number">5.0.1.</span> <span class="toc-text">安装时缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装时缓存-非依赖"><span class="toc-number">5.0.2.</span> <span class="toc-text">安装时缓存 - 非依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#离线优先（缓存、回退到网络）"><span class="toc-number">5.0.3.</span> <span class="toc-text">离线优先（缓存、回退到网络）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络优先（网络回退到缓存）"><span class="toc-number">5.0.4.</span> <span class="toc-text">网络优先（网络回退到缓存）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stale-while-revalidate"><span class="toc-number">5.0.5.</span> <span class="toc-text">stale-while-revalidate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缓存然后访问网络"><span class="toc-number">5.0.6.</span> <span class="toc-text">缓存然后访问网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常规回退"><span class="toc-number">5.0.7.</span> <span class="toc-text">常规回退</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于-push-和-sync"><span class="toc-number">6.</span> <span class="toc-text">关于 push 和 sync</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关的库"><span class="toc-number">7.</span> <span class="toc-text">相关的库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多阅读"><span class="toc-number">8.</span> <span class="toc-text">更多阅读</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        走进 service worker
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-08-29T13:49:04.000Z" itemprop="datePublished">2018-08-29</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/service-worker/">service worker</a>, <a class="tag-link" href="/tags/性能/">性能</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="什么是-service-worker"><a href="#什么是-service-worker" class="headerlink" title="什么是 service worker?"></a>什么是 service worker?</h3><p>简单来说，service worker = worker + 离线缓存。<br><a id="more"></a></p>
+<ol>
+<li>首先，什么是 worker<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API" target="_blank" rel="noopener">Web Workers API - Web API 接口 | MDN</a><br>Worker 是浏览器中的 javascript 多线程解决方案，可以将复杂的运算交给后台进行处理。<br>浏览器的 js 线程本是单线程的，但是通过 worker，可以将部分运算转移给浏览器原生，从而减轻 js 线程本身的压力。<br>worker 和主线程可以通过 message 进行消息传递，如下：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程 main.js</span></span><br><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">'worker.js'</span>);</span><br><span class="line">worker.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 接收子线程消息</span></span><br><span class="line">&#125;</span><br><span class="line">worker.postMessage(&#123;</span><br><span class="line">  type: <span class="string">"start"</span>,</span><br><span class="line">  value: <span class="number">1234</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// worker.js</span></span><br><span class="line">onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 接收主线程消息</span></span><br><span class="line">&#125;</span><br><span class="line">postMessage(&#123;</span><br><span class="line">  type: <span class="string">"done"</span>,</span><br><span class="line">  value: <span class="number">1234</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>由于 worker 活在另一个全局中，它也有一些限制：</p>
+<ul>
+<li>需要与分配该 worker 的脚本同源</li>
+<li>不能访问DOM、window</li>
+<li>但我们可以访问 window 下的一些对象：包括定时器、navigator、location、web socket等等，详见<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers" target="_blank" rel="noopener">Functions and classes available to Web Workers - Web APIs | MDN</a>。</li>
+<li>可以通过<code>importScripts()</code>方法加载其他脚本。</li>
+</ul>
+<p>Worker 的其实有很大用处，不过由于工作内容大多为业务内容，相对来说比较轻量，用不到十分复杂的运算，所以 worker 的使用也并不多见。更多应用可见<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank" rel="noopener">使用 Web Workers - Web API 接口 | MDN</a>。</p>
+<ol start="2">
+<li>关于离线缓存<br>所谓离线缓存，就是即使用户断网，也能够正常访问网页内容的一种体验。</li>
+</ol>
+<p>在 service worker 之前，我们用 AppCache 实现一些资源的缓存：<br><a href="https://www.html5rocks.com/zh/tutorials/appcache/beginner/" target="_blank" rel="noopener">应用缓存初级使用指南 - HTML5 Rocks</a>。<br>AppCache 一般长这样：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">"example.appcache"</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line"><span class="comment"># v1 2011-08-14</span></span><br><span class="line"><span class="comment"># This is another comment</span></span><br><span class="line">index.html</span><br><span class="line">cache.html</span><br><span class="line">style.css</span><br><span class="line">image1.png</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use from network if available</span></span><br><span class="line">NETWORK:</span><br><span class="line">network.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fallback content</span></span><br><span class="line">FALLBACK:</span><br><span class="line">/ fallback.html</span><br></pre></td></tr></table></figure>
+<p>我刚入行的时候，也见过这个 manifest 文件，不过没有深入了解或应用。现在看到 service worker，才发现这种方案已经被废弃。</p>
+<p><a href="https://www.zhihu.com/question/29876535" target="_blank" rel="noopener">为什么app cache没有得到大规模应用？它有哪些硬伤吗？ - 知乎</a><br><a href="https://alistapart.com/article/application-cache-is-a-douchebag" target="_blank" rel="noopener">Application Cache is a Douchebag · An A List Apart Article</a> | 中文翻译：<a href="http://zoomzhao.github.io/2012/11/11/application-cache-is-a-douchebag/" target="_blank" rel="noopener">Application Cache 就是个坑 | Zoom’s Blog</a></p>
+<ol start="3">
+<li>service worker<br>有了 AppCache这一前车之鉴，sw 在被设计时就规避了许多陷阱。<br>sw 基于 worker，这决定了它的<strong>生命周期独立于页面</strong>，我们需要它的时候，它会重启，不需要它的时候，它自己就终止，可以说是一个完美备胎。<br>另一方面，它是一个<strong>可编程的网络代理</strong>。通过监听页面内所有的网络请求，并加以处理、缓存等操作，从而实现了自由、灵活的离线体验。通过一些缓存策略，甚至可以实现资源预加载、页面无等待体验。</li>
+</ol>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><p>sw 的能力如此之大，权限如此之高，因此需要绝对安全。</p>
+<ul>
+<li>它需要再 https 或 localhost 环境中才能正常运行</li>
+<li>缓存机制则依赖 Cache API 实现</li>
+<li>请求则依赖 HTML5 fetch API</li>
+<li>异步则依赖 Promise 实现</li>
+<li>除此之外，还要考虑其兼容性<br><img src="http://blogx-1255641342.picsh.myqcloud.com/ECAB89EB-B47E-449A-B358-4E602429FC7E.png" alt=""></li>
+</ul>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>sw 的生命周期非常简单，可以分为：首次安装、更新 worker 两个流程。</p>
+<ul>
+<li>首次安装时<blockquote>
+<p>installing(触发<code>install</code>事件) -&gt; activating(触发<code>activate</code>事件) -&gt; activated</p>
+</blockquote>
+</li>
+</ul>
+<p><code>install</code>和<code>activate</code>事件中都可以额外做一些缓存操作，当然，我们更倾向于在前者中<strong>缓存必要的静态资源</strong>，这是最早且最佳的时机。<br>两个事件中都可以调用<code>event.waitUntil()</code>这一方法，传入的参数需要是一个<code>promise</code>，待<code>promise</code>对象被<code>resolve</code>之后，才算是这一步真正被完成，然后才进行下一个步骤。上文所说的缓存静态资源的操作，我们通常就是通过这个方法来执行。<br>待 sw 真正完成了激活（即到了 activated 这一步），才可以开始监听其他功能性事件，包括 fetch、push、async，这些才是真正的重头戏。</p>
+<ul>
+<li>更新 worker<blockquote>
+<p>installing(触发<code>install</code>事件) -&gt; waiting -&gt;  activating(触发<code>activate</code>事件) -&gt; activated</p>
+</blockquote>
+</li>
+</ul>
+<p>更新 worker 比安装多了一个步骤——waiting。这一步骤主要是等待上一个 worker 执行完自己的使命，这样的话，我们需要在接收到新 worker 后，再重新加载一次页面，才能真正执行新 worker 的内容。当然，此时执行时，我可以可以将上一次 install 过程中缓存的内容秒展示出来，实现了所谓的预缓存。<br>但是，这种延后生效的策略难免有些副作用，而且在一定程度上让人难以理解。所以可以使用<code>install</code>事件中的<code>event.waitingUntil()</code>方法来跳过 waiting 这一步骤。同时在<code>activate</code>事件中调用<code>self.clients.claim()</code>方法来获取作用域下其他窗口的控制权（即使没有激活该窗口）。这样，一旦 install 完成，直接就会替代久的 worker，执行新 worker 的内容。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/795BE496-DEB2-47D5-A464-6E8A5C7310B9.png" alt=""></p>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><p>install 和 activate 是生命周期相关的事件；<br>message 为 worker 的基本事件，用于 worker 与主线程通信；<br>Fetch、sync、push 则是功能性事件。fetch 主要用于缓存，sync 用于后台更新资源，push 则用于推送通知。后两者尚未非常成熟，暂待观望。</p>
+<p><img src="http://blogx-1255641342.picsh.myqcloud.com/1B7F014A-B1A7-4F62-9892-26586077416B.png" alt=""></p>
+<p><a href="https://lavas.baidu.com/pwa/offline-and-cache-loading/service-worker/service-worker-lifecycle" target="_blank" rel="noopener">Service Worker 生命周期 | Lavas</a></p>
+<h2 id="简单例子看看流程"><a href="#简单例子看看流程" class="headerlink" title="简单例子看看流程"></a>简单例子看看流程</h2><p>放一些代码，结合上文体验更佳</p>
+<ul>
+<li><p>入口（注册 sw.js）<br>一般会在页面 load 后加载注册 sw.js，主要是为了不干扰页面首次加载。sw.js 文件名和路径一旦确定以后千万不可再修改，否则会很麻烦。<br>一般来说，sw.js 会放在根目录下，这样一来，sw 的作用域就在整个域名，如果想要将范围缩小到某个具体的文件夹下，可以添加 scope参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">'serviceWorker'</span> <span class="keyword">in</span> navigator) &#123;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    navigator.serviceWorker.register(<span class="string">'/sw.js'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">registration</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// Registration was successful</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'ServiceWorker registration successful with scope: '</span>, registration.scope);</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// registration failed :(</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'ServiceWorker registration failed: '</span>, err);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>install 事件<br>此处在 install 中做了一些静态资源的缓存，使用的是 cache api。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CACHE_NAME = <span class="string">'my-site-cache-v1'</span>;</span><br><span class="line"><span class="keyword">var</span> urlsToCache = [</span><br><span class="line">  <span class="string">'/'</span>,</span><br><span class="line">  <span class="string">'/styles/main.css'</span>,</span><br><span class="line">  <span class="string">'/script/main.js'</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">self.addEventListener(<span class="string">'install'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Perform install steps</span></span><br><span class="line">  event.waitUntil(</span><br><span class="line">    caches.open(CACHE_NAME)</span><br><span class="line">      .then(<span class="function"><span class="keyword">function</span>(<span class="params">cache</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Opened cache'</span>);</span><br><span class="line">        <span class="keyword">return</span> cache.addAll(urlsToCache);</span><br><span class="line">      &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>activate 事件<br>下面这段代码演示的是 sw 更新时，在 activate 事件中清理相关缓存，也使用了相关的 cache api。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'activate'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> cacheWhitelist = [<span class="string">'pages-cache-v1'</span>, <span class="string">'blog-posts-cache-v1'</span>];</span><br><span class="line"></span><br><span class="line">  event.waitUntil(</span><br><span class="line">    caches.keys().then(<span class="function"><span class="keyword">function</span>(<span class="params">cacheNames</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.all(</span><br><span class="line">        cacheNames.map(<span class="function"><span class="keyword">function</span>(<span class="params">cacheName</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (cacheWhitelist.indexOf(cacheName) === <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> caches.delete(cacheName);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      );</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>网络代理<br>下面的代码中，我们会监听 fetch 事件，并将缓存中已存在的相关响应返回，否则会请求线上数据。<br>这是最简单的缓存处理，这里只做例子，让读者了解 fetch 事件大概在做什么事情，实际应用时会更加复杂。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'fetch'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.respondWith(</span><br><span class="line">    caches.match(event.request)</span><br><span class="line">      .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Cache hit - return response</span></span><br><span class="line">        <span class="keyword">if</span> (response) &#123;</span><br><span class="line">          <span class="keyword">return</span> response;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> fetch(event.request);</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>上述例子皆来自于 <a href="https://developers.google.com/web/fundamentals/primers/service-workers/?hl=zh-cn" target="_blank" rel="noopener">google 开发者文档</a>， <a href="https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle?hl=zh-cn" target="_blank" rel="noopener">此篇</a>中的例子也非常生动，对于理解 sw 的生命周期有很大帮助。</p>
+</blockquote>
+<h2 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h2><h4 id="Application-service-worker"><a href="#Application-service-worker" class="headerlink" title="Application - service worker"></a>Application - service worker</h4><p>可以看到 sw 相关的状态。<br>由于 sw 更新时会有 waiting 阶段，导致接收到新 sw 后需要再刷新一次才能真正生效，对调试来说非常不方便，可以通过<code>Update on reload</code>。<br><code>Bypass the network</code>可以无视缓存，总是请求线上内容。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/3C0AF5D3-090A-4626-BE24-7B242CB418B3.png" alt=""></p>
+<h4 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h4><p>在 network 中查看经过 sw 的请求和从缓存中直接读取的请求，可以看到从缓存中读取的时间只需要7ms，跟实际的请求相比，节约了非常多时间。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/26779190-B8CF-4037-884F-2FA14CA6D342.png" alt=""></p>
+<h4 id="Application-Cache-Storage"><a href="#Application-Cache-Storage" class="headerlink" title="Application - Cache Storage"></a>Application - Cache Storage</h4><p>Application 下有多个地方可以管理缓存<br><img src="http://blogx-1255641342.picsh.myqcloud.com/F6CE51D9-6CAA-4D57-A4F1-04E1C50E613F.png" alt=""></p>
+<h2 id="缓存策略"><a href="#缓存策略" class="headerlink" title="缓存策略"></a>缓存策略</h2><blockquote>
+<p>这部分内容来自于 google 开发者文档的<a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/" target="_blank" rel="noopener">离线指南</a>，介绍了 service worker 中相关的缓存策略，以及业务内的缓存时机等。这里只搬了常用的且与 service worker 相关的一些内容，并加上了自己的理解。</p>
+</blockquote>
+<h4 id="安装时缓存"><a href="#安装时缓存" class="headerlink" title="安装时缓存"></a>安装时缓存</h4><p>适用于页面静态资源 js、css、字体、图片、模板等<br><img src="http://blogx-1255641342.picsh.myqcloud.com/F1C1F9A3-FC80-4260-9126-B9695B78B11B.png" alt=""><br>在 install 时进行静态资源的缓存。<br>相比于生命周期的其他阶段，install是最早的，尽早缓存静态资源自然是再好不过。<br>另一方面，install 一般在页面 load 后，不影响页面资源的正常加载。<br>但是要注意，这一策略是缓存成功后才进入下一阶段（通过<code>event.waitUntil</code>方法），一旦缓存失败，安装也会失败。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'install'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.waitUntil(</span><br><span class="line">    caches.open(<span class="string">'mysite-static-v3'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">cache</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> cache.addAll([</span><br><span class="line">        <span class="string">'/css/whatever-v3.css'</span>,</span><br><span class="line">        <span class="string">'/css/imgs/sprites-v6.png'</span>,</span><br><span class="line">        <span class="string">'/css/fonts/whatever-v8.woff'</span>,</span><br><span class="line">        <span class="string">'/js/all-min-v4.js'</span></span><br><span class="line">        <span class="comment">// etc</span></span><br><span class="line">      ]);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装时缓存-非依赖"><a href="#安装时缓存-非依赖" class="headerlink" title="安装时缓存 - 非依赖"></a>安装时缓存 - 非依赖</h4><p>所谓非依赖就是指，即使缓存失败，也不会影响安装。适用于缓存一些次要的大型资源，例如游戏中的一些次要资源。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/7ADC17E8-B485-46E2-AE03-564FF5DAF805.png" alt=""><br>代码如下：<br>可以看到主要资源和次要资源的缓存相关代码的区别就在于有没有写在<code>return</code>中。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'install'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.waitUntil(</span><br><span class="line">    caches.open(<span class="string">'mygame-core-v1'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">cache</span>) </span>&#123;</span><br><span class="line">      cache.addAll(</span><br><span class="line">        <span class="comment">// 缓存次要资源</span></span><br><span class="line">      );</span><br><span class="line">      <span class="keyword">return</span> cache.addAll(</span><br><span class="line">        <span class="comment">// 缓存主要资源</span></span><br><span class="line">      );</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="离线优先（缓存、回退到网络）"><a href="#离线优先（缓存、回退到网络）" class="headerlink" title="离线优先（缓存、回退到网络）"></a>离线优先（缓存、回退到网络）</h4><p>即先使用缓存内容，无缓存时请求网络<br>对于一些不会更新的静态资源，比如自带 hash 的js、css、图片、字体等，完全可以采用此种方式。<br>不过需要注意清理缓存。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/3C8B85A0-AFFA-4AAE-A172-499496C87884.png" alt=""><br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'fetch'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.respondWith(</span><br><span class="line">    caches.match(event.request).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> response || fetch(event.request);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="网络优先（网络回退到缓存）"><a href="#网络优先（网络回退到缓存）" class="headerlink" title="网络优先（网络回退到缓存）"></a>网络优先（网络回退到缓存）</h4><p>请求不到网络内容时展示缓存。<br>在线用户可以获取到最新的内容，但是离线用户获取到的版本较老（需要搭配缓存的更新）。但是这种策略的缺点在于，如果用户网速较慢，最终获取的结果却仍然是一个旧资源，体验很差。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/428E5047-9339-46DC-AA17-57EF0B276C3D.png" alt=""><br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'fetch'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.respondWith(</span><br><span class="line">    fetch(event.request).catch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> caches.match(event.request);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="stale-while-revalidate"><a href="#stale-while-revalidate" class="headerlink" title="stale-while-revalidate"></a>stale-while-revalidate</h4><p>stale 是”旧”的意思，revalidate 则意为“可信的”，即获取到的资源是旧的，但是确实可信的。<br>当用户发出请求时，首先会拿到缓存的内容，并立刻向线上请求最新资源并更新缓存。<br>这种策略适合于请求频繁的资源，只有这样，用户上一次获取的内容才能足够“可信”。<br>但这种缓存策略<strong>决不能用于跟用户交互相关的资源</strong>，例如点赞、评论、投票等等，或者一些非 get 操作，会导致操作“无效”、有误等问题。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/9A55BB81-62BA-4872-A685-E23AA627E86E.png" alt=""><br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'fetch'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.respondWith(</span><br><span class="line">    caches.open(<span class="string">'mysite-dynamic'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">cache</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> cache.match(event.request).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fetchPromise = fetch(event.request).then(<span class="function"><span class="keyword">function</span>(<span class="params">networkResponse</span>) </span>&#123;</span><br><span class="line">          cache.put(event.request, networkResponse.clone());</span><br><span class="line">          <span class="keyword">return</span> networkResponse;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> response || fetchPromise;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="缓存然后访问网络"><a href="#缓存然后访问网络" class="headerlink" title="缓存然后访问网络"></a>缓存然后访问网络</h4><p><img src="http://blogx-1255641342.picsh.myqcloud.com/AA646AB6-50BB-4987-97A3-BD8015D1E55E.png" alt=""></p>
+<p>这个策略跟上文的”缓存回退到网络”策略在字面上有些类似，但实际上完全不同。从行为来说，它更类似于上文的“stale-while-revalidate”策略，都是先展示缓存内容，然后再获取线上资源。不同的是，前者会通过提示用户更新来展示，后者则是在下一次请求中备用。<br>社交网络信息流、以及一些内容型网站，经常会用这种策略来保持当前阅读进度的同时，提示用户内容有更新。<br>代码比较复杂，请查阅<a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network" target="_blank" rel="noopener">原文档</a>。</p>
+<h4 id="常规回退"><a href="#常规回退" class="headerlink" title="常规回退"></a>常规回退</h4><p>没有缓存且网络不可用时，使用某固定资源兜底（该固定资源需要在 sw 安装时作为依赖项缓存）。<br>这个策略的主要用于 offline、裂图时的兜底样式，从而提高用户体验。<br><img src="http://blogx-1255641342.picsh.myqcloud.com/008723BB-C44D-49EA-920A-D6DAC0D30CBC.png" alt=""><br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'fetch'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  event.respondWith(</span><br><span class="line">    caches.match(event.request).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> response || fetch(event.request);</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> caches.match(<span class="string">'/offline.html'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上述的策略都是一些基础策略，通过上述策略，其实可以了解到 cache 相关的常规操作，通过相互搭配、添加其他内容，来实现适合业务的最佳做法。</p>
+<h2 id="关于-push-和-sync"><a href="#关于-push-和-sync" class="headerlink" title="关于 push 和 sync"></a>关于 push 和 sync</h2><p>这是除了 fetch 以外，sw 能监听的另外两个功能性事件。</p>
+<ul>
+<li>push 用于通知推送，可以参考<a href="https://developers.google.com/web/fundamentals/push-notifications/" target="_blank" rel="noopener">google 官方文档</a>，以及<a href="https://zhuanlan.zhihu.com/p/43063120" target="_blank" rel="noopener">翻译</a></li>
+<li>sync 则用于<a href="https://developers.google.com/web/updates/2015/12/background-sync" target="_blank" rel="noopener">后台更新</a></li>
+</ul>
+<p>这部分内容非常庞大，就不放在这里讨论了。</p>
+<h2 id="相关的库"><a href="#相关的库" class="headerlink" title="相关的库"></a>相关的库</h2><p>直接使用 sw 原生操作无疑是繁琐的：为不同的资源手动编写不同的策略，还要考虑异步等等。尤其是 SPA 应用大行其道、网页框架层出不穷的今天，我们用构建工具完善我们的开发流程，页面构建不再像原来那样简单原始。<br>因此，如果要搭配 sw 的配置，我们不可能每次修改页面都手动修改资源文件。<br>google 官方也深谙其道，出了 <a href="https://developers.google.com/web/tools/workbox/" target="_blank" rel="noopener">Workbox</a> 这个库，封装了常用的方法、缓存策略，还提供了一些更高级的玩法。<br>Workbox 有 cli 方式，也有 webpack 的插件，和构建融为一体，使用上非常方便。<br><a href="https://juejin.im/entry/5a60c1a4518825732e2f5d82" target="_blank" rel="noopener">神奇的 Workbox 3.0 - 让你的 Web 站点轻松做到离线可访问 - 前端 - 掘金</a></p>
+<hr>
+<h2 id="更多阅读"><a href="#更多阅读" class="headerlink" title="更多阅读"></a>更多阅读</h2><p><a href="https://zhuanlan.zhihu.com/p/27264234" target="_blank" rel="noopener">深入了解 Service Worker ，看这篇就够了</a></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是-service-worker"><span class="toc-number">1.1.</span> <span class="toc-text">什么是 service worker?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖"><span class="toc-number">1.2.</span> <span class="toc-text">依赖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生命周期"><span class="toc-number">2.1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件"><span class="toc-number">2.2.</span> <span class="toc-text">事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单例子看看流程"><span class="toc-number">3.</span> <span class="toc-text">简单例子看看流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何调试"><span class="toc-number">4.</span> <span class="toc-text">如何调试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Application-service-worker"><span class="toc-number">4.0.1.</span> <span class="toc-text">Application - service worker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Network"><span class="toc-number">4.0.2.</span> <span class="toc-text">Network</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Application-Cache-Storage"><span class="toc-number">4.0.3.</span> <span class="toc-text">Application - Cache Storage</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存策略"><span class="toc-number">5.</span> <span class="toc-text">缓存策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装时缓存"><span class="toc-number">5.0.1.</span> <span class="toc-text">安装时缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装时缓存-非依赖"><span class="toc-number">5.0.2.</span> <span class="toc-text">安装时缓存 - 非依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#离线优先（缓存、回退到网络）"><span class="toc-number">5.0.3.</span> <span class="toc-text">离线优先（缓存、回退到网络）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网络优先（网络回退到缓存）"><span class="toc-number">5.0.4.</span> <span class="toc-text">网络优先（网络回退到缓存）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stale-while-revalidate"><span class="toc-number">5.0.5.</span> <span class="toc-text">stale-while-revalidate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缓存然后访问网络"><span class="toc-number">5.0.6.</span> <span class="toc-text">缓存然后访问网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常规回退"><span class="toc-number">5.0.7.</span> <span class="toc-text">常规回退</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于-push-和-sync"><span class="toc-number">6.</span> <span class="toc-text">关于 push 和 sync</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关的库"><span class="toc-number">7.</span> <span class="toc-text">相关的库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多阅读"><span class="toc-number">8.</span> <span class="toc-text">更多阅读</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&text=走进 service worker"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&is_video=false&description=走进 service worker"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=走进 service worker&body=Check out this article: http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&title=走进 service worker"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/08/29/18-08-29-about-service-worker-md/&name=走进 service worker&description=&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;h3 id=&quot;什么是-service-worker&quot;&gt;&lt;a href=&quot;#什么是-service-worker&quot; class=&quot;headerlink&quot; title=&quot;什么是 service worker?&quot;&gt;&lt;/a&gt;什么是 service worker?&lt;/h3&gt;&lt;p&gt;简单来说，service worker = worker + 离线缓存。&lt;br&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 2x
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '2x';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="react native, image, border radius, overlayColor, position, absolute, loop animation">
+<meta name="keywords" content="前端,ReactNative">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native使用小结-1">
+<meta property="og:url" content="http://y2x33.github.io/2017/09/24/using-react-native-1/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="react native, image, border radius, overlayColor, position, absolute, loop animation">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://ime.cdn.cootekservice.com/international/shop/v5870/default/resource/images/liveTheme/mask.png">
+<meta property="og:updated_time" content="2017-11-13T03:52:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native使用小结-1">
+<meta name="twitter:description" content="react native, image, border radius, overlayColor, position, absolute, loop animation">
+<meta name="twitter:image" content="http://ime.cdn.cootekservice.com/international/shop/v5870/default/resource/images/liveTheme/mask.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>React Native使用小结-1</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/11/12/cross-gfw/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/09/23/experience-of-interview/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/09/24/using-react-native-1/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&text=React Native使用小结-1"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&is_video=false&description=React Native使用小结-1"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React Native使用小结-1&body=Check out this article: http://y2x33.github.io/2017/09/24/using-react-native-1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&name=React Native使用小结-1&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#主要的布局方式是flex"><span class="toc-number">1.</span> <span class="toc-text">主要的布局方式是flex</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#position-”absolute”其实很方便"><span class="toc-number">2.</span> <span class="toc-text">position=”absolute”其实很方便</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Image-和-border-radius-的那些事"><span class="toc-number">3.</span> <span class="toc-text">Image 和 border radius 的那些事</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Image在contain的时候，只能居中"><span class="toc-number">4.</span> <span class="toc-text">Image在contain的时候，只能居中</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在RN中实现一个三角形"><span class="toc-number">5.</span> <span class="toc-text">在RN中实现一个三角形</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在RN中会更加频繁地使用异步"><span class="toc-number">6.</span> <span class="toc-text">在RN中会更加频繁地使用异步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环动画"><span class="toc-number">7.</span> <span class="toc-text">循环动画</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        React Native使用小结-1
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-09-24T14:08:02.000Z" itemprop="datePublished">2017-09-24</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/ReactNative/">ReactNative</a>, <a class="tag-link" href="/tags/前端/">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>无数次写样式的时候在心里吐槽，真的是“一夜回到解放前”！</p>
+<h1 id="主要的布局方式是flex"><a href="#主要的布局方式是flex" class="headerlink" title="主要的布局方式是flex"></a>主要的布局方式是flex</h1><p>在css里不怎么使用，所以一开始非常不习惯，而且也觉得非常不自由。<br>不过只要记住<code>justifyContent</code>控制主轴，<code>alignItems</code>控制次轴，大部分情况都能handle。</p>
+<h1 id="position-”absolute”其实很方便"><a href="#position-”absolute”其实很方便" class="headerlink" title="position=”absolute”其实很方便"></a>position=”absolute”其实很方便</h1><p>在css中，absolute的定位原点是position非static的最近的祖先元素，所以当我们想用absolute时，通常会在父元素的样式上添加<code>position:&quot;relative&quot;</code>。<br>而在RN中，设置为absolute的元素默认以父组件为定位原点：</p>
+<blockquote>
+</blockquote>
+<p>position in React Native is similar to regular CSS, but everything is set to relative by default, so absolute positioning is always just relative to the parent.</p>
+<h1 id="Image-和-border-radius-的那些事"><a href="#Image-和-border-radius-的那些事" class="headerlink" title="Image 和 border radius 的那些事"></a>Image 和 border radius 的那些事</h1><ol>
+<li><p>Image作为背景时（也就是包含其他元素时），borderRadius会失效<br>官方issue里有解决方案如下，可以试试：<a href="https://github.com/facebook/react-native/issues/8885" target="_blank" rel="noopener">将borderRadius作为一个属性值传入Image组件</a></p>
+</li>
+<li><p>动图（包括gif和webp）的borderRadius会失效<br>在stackoverflow上搜到一个解决方案：<a href="https://stackoverflow.com/questions/40463147/rounded-corner-issue-with-gif-image-in-react-native-android/41715524" target="_blank" rel="noopener">Rounded corner issue with GIF image in react native android</a>：</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">image: &#123;</span><br><span class="line">  width: <span class="number">75</span>,</span><br><span class="line">  height: <span class="number">75</span>,</span><br><span class="line">  borderRadius: <span class="number">10</span>,</span><br><span class="line">  overlayColor: <span class="string">'#fff'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，在样式中使用<code>overlayColor</code>属性，<a href="https://facebook.github.io/react-native/docs/image.html#style" target="_blank" rel="noopener">官方文档</a>的说明如下：</p>
+<blockquote>
+<p>When the image has rounded corners, specifying an overlayColor will cause the remaining space in the corners to be filled with a solid color. This is useful in cases which are not supported by the Android implementation of rounded corners: - Certain resize modes, such as ‘contain’ - Animated GIFs</p>
+</blockquote>
+<blockquote>
+<p>A typical way to use this prop is with images displayed on a solid background and setting the overlayColor to the same color as the background.</p>
+</blockquote>
+<p>可以发现<code>overlayColor</code>就是用来填充图片的圆角，但是在使用中需要注意：</p>
+<ol>
+<li>图片的背景需要是某种固定的颜色</li>
+<li>图片不能有边框或者阴影</li>
+</ol>
+<p>不过这个值并没有起到任何作用，最终的解决方案是 <strong>手动overlayColor</strong>：<br>在目标图片上方添加一张overlayColor图，这张图需要符合下述条件：</p>
+<ul>
+<li>中心透明，用来展示图片</li>
+<li>可以画上边框或者阴影如果有需要</li>
+<li>四个边角的颜色需要与背景颜色保持一致（这也限制了背景需要为纯色）<br><img src="http://ime.cdn.cootekservice.com/international/shop/v5870/default/resource/images/liveTheme/mask.png" alt="overlayColor图"></li>
+</ul>
+<p>附上代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">render()&#123;</span><br><span class="line">  <span class="keyword">return</span> </span><br><span class="line">    &lt;View style=&#123;baseStyle.item&#125;&gt;</span><br><span class="line">      &lt;Image resizeMode=<span class="string">"stretch"</span></span><br><span class="line">	     style=&#123;baseStyle.itemImage&#125;</span><br><span class="line">	     source=&#123;&#123;<span class="attr">uri</span>: <span class="keyword">this</span>.itemImage&#125;/&gt;</span><br><span class="line">      &lt;Image resizeMode=<span class="string">"stretch"</span></span><br><span class="line">	     style=&#123;baseStyle.imageMask&#125;</span><br><span class="line">	     source=&#123;&#123;<span class="attr">uri</span>: <span class="keyword">this</span>.imageMaskUri&#125;/&gt;</span><br><span class="line">    &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> baseStyle = StyleSheet.create(&#123;</span><br><span class="line">  item: &#123;</span><br><span class="line">    alignItems: <span class="string">'center'</span>,</span><br><span class="line">    justifyContent: <span class="string">'center'</span>,</span><br><span class="line">    width: <span class="number">100</span>,</span><br><span class="line">    height: <span class="number">100</span>,</span><br><span class="line">    elevation: <span class="number">0</span>, <span class="comment">// 不能有阴影</span></span><br><span class="line">    borderRadius: <span class="number">4</span>,</span><br><span class="line">    borderWidth: <span class="number">1</span>,</span><br><span class="line">    borderColor: <span class="string">'rgba(0,0,0,0.06)'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  itemImage: &#123;</span><br><span class="line">    width: <span class="number">98</span>,</span><br><span class="line">    height: <span class="number">98</span>,</span><br><span class="line">    borderRadius: <span class="number">2.5</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  imageMask: &#123;</span><br><span class="line">    width: <span class="number">98</span>, <span class="comment">//与itemImage保持一致</span></span><br><span class="line">    height: <span class="number">98</span>, <span class="comment">//与itemImage保持一致</span></span><br><span class="line">    position: <span class="string">'absolute'</span>,</span><br><span class="line">    top: <span class="number">0</span>,</span><br><span class="line">    left: <span class="number">0</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="Image在contain的时候，只能居中"><a href="#Image在contain的时候，只能居中" class="headerlink" title="Image在contain的时候，只能居中"></a>Image在contain的时候，只能居中</h1><p>当<code>resizeMode=&quot;contain&quot;</code>时，图片会默认在Image组件中居中，而且没有快捷的方法实现“contain”&amp;&amp;”左对齐/右对齐/其他任意位置”。（不像css里background那样方便）<br>如果需要实现上述效果，你需要：</p>
+<ol>
+<li>手动将图片放在View或其他容器中</li>
+<li>手动计算图片的宽高</li>
+</ol>
+<h1 id="在RN中实现一个三角形"><a href="#在RN中实现一个三角形" class="headerlink" title="在RN中实现一个三角形"></a>在RN中实现一个三角形</h1><p>和css中相同：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> styles=StyleSheet.create(&#123;</span><br><span class="line">   arrow:&#123;</span><br><span class="line">       width:<span class="number">0</span>,</span><br><span class="line">       height:<span class="number">0</span>,</span><br><span class="line">       borderWidth:<span class="number">6</span>,</span><br><span class="line">       borderTopColor:<span class="string">'#fff'</span>,</span><br><span class="line">       borderRightColor:<span class="string">'transparent'</span>,</span><br><span class="line">       borderBottomColor:<span class="string">'transparent'</span>,</span><br><span class="line">       borderLeftColor:<span class="string">'transparent'</span>,</span><br><span class="line">   &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="在RN中会更加频繁地使用异步"><a href="#在RN中会更加频繁地使用异步" class="headerlink" title="在RN中会更加频繁地使用异步"></a>在RN中会更加频繁地使用异步</h1><p>调用本地方法时，经常会以异步的方式返回，所以跟普通的web应用比起来，需要处理更多异步方法。</p>
+<h1 id="循环动画"><a href="#循环动画" class="headerlink" title="循环动画"></a>循环动画</h1><ol>
+<li>在start的回调函数里继续执行动画</li>
+<li>一定要在componentWillUnmount时（或者之前）<code>stopAnimation()</code><br>具体见<a href="https://stackoverflow.com/questions/42149793/how-to-stop-a-looping-animation-in-react-native" target="_blank" rel="noopener">这个回答</a></li>
+</ol>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#主要的布局方式是flex"><span class="toc-number">1.</span> <span class="toc-text">主要的布局方式是flex</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#position-”absolute”其实很方便"><span class="toc-number">2.</span> <span class="toc-text">position=”absolute”其实很方便</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Image-和-border-radius-的那些事"><span class="toc-number">3.</span> <span class="toc-text">Image 和 border radius 的那些事</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Image在contain的时候，只能居中"><span class="toc-number">4.</span> <span class="toc-text">Image在contain的时候，只能居中</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在RN中实现一个三角形"><span class="toc-number">5.</span> <span class="toc-text">在RN中实现一个三角形</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在RN中会更加频繁地使用异步"><span class="toc-number">6.</span> <span class="toc-text">在RN中会更加频繁地使用异步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环动画"><span class="toc-number">7.</span> <span class="toc-text">循环动画</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2017/09/24/using-react-native-1/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&text=React Native使用小结-1"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&is_video=false&description=React Native使用小结-1"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React Native使用小结-1&body=Check out this article: http://y2x33.github.io/2017/09/24/using-react-native-1/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&title=React Native使用小结-1"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2017/09/24/using-react-native-1/&name=React Native使用小结-1&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 2x
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '2x';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
