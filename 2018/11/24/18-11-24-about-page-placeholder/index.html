@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="菊花和白屏并不能给用户美好的体验。因此在部分页面，我们尝试了一些骨架图。骨架图的初衷就是减少用户等待的感觉，loading 到 loaded 的过程中也可以探索页面结构。骨架图大概有这两种类型：  纯样式的骨架图 空数据骨架图">
+<meta name="keywords" content="react,骨架图,用户体验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="骨架图这么简单的东西我竟然也写了一篇文章？">
+<meta property="og:url" content="http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/index.html">
+<meta property="og:site_name" content="hellox">
+<meta property="og:description" content="菊花和白屏并不能给用户美好的体验。因此在部分页面，我们尝试了一些骨架图。骨架图的初衷就是减少用户等待的感觉，loading 到 loaded 的过程中也可以探索页面结构。骨架图大概有这两种类型：  纯样式的骨架图 空数据骨架图">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-24T10:15:47.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="骨架图这么简单的东西我竟然也写了一篇文章？">
+<meta name="twitter:description" content="菊花和白屏并不能给用户美好的体验。因此在部分页面，我们尝试了一些骨架图。骨架图的初衷就是减少用户等待的感觉，loading 到 loaded 的过程中也可以探索页面结构。骨架图大概有这两种类型：  纯样式的骨架图 空数据骨架图">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>骨架图这么简单的东西我竟然也写了一篇文章？</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+</head>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/08/29/18-08-29-about-service-worker-md/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&text=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&is_video=false&description=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=骨架图这么简单的东西我竟然也写了一篇文章？&body=Check out this article: http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&name=骨架图这么简单的东西我竟然也写了一篇文章？&description=&lt;p&gt;菊花和白屏并不能给用户美好的体验。因此在部分页面，我们尝试了一些骨架图。骨架图的初衷就是减少用户等待的感觉，loading 到 loaded 的过程中也可以探索页面结构。&lt;br&gt;骨架图大概有这两种类型：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;纯样式的骨架图&lt;/li&gt;
+&lt;li&gt;空数据骨架图&lt;/li&gt;
+&lt;/ol&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#纯样式的骨架图"><span class="toc-number">1.</span> <span class="toc-text">纯样式的骨架图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空数据骨架图"><span class="toc-number">2.</span> <span class="toc-text">空数据骨架图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#骨架组件的状态管理"><span class="toc-number">2.1.</span> <span class="toc-text">骨架组件的状态管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#骨架数据写在哪一层"><span class="toc-number">2.2.</span> <span class="toc-text">骨架数据写在哪一层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不需要骨架图的情况"><span class="toc-number">3.</span> <span class="toc-text">不需要骨架图的情况</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto pl3 pr2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        骨架图这么简单的东西我竟然也写了一篇文章？
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">hellox</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-11-24T09:31:47.000Z" itemprop="datePublished">2018-11-24</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tags"></i>
+        <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/用户体验/">用户体验</a>, <a class="tag-link" href="/tags/骨架图/">骨架图</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>菊花和白屏并不能给用户美好的体验。因此在部分页面，我们尝试了一些骨架图。骨架图的初衷就是减少用户等待的感觉，loading 到 loaded 的过程中也可以探索页面结构。<br>骨架图大概有这两种类型：</p>
+<ol>
+<li>纯样式的骨架图</li>
+<li>空数据骨架图</li>
+</ol>
+<a id="more"></a>
+<h2 id="纯样式的骨架图"><a href="#纯样式的骨架图" class="headerlink" title="纯样式的骨架图"></a>纯样式的骨架图</h2><p>纯样式，即没有数据联动的骨架图。<br>通常，这样的骨架图只占单屏，且一般不能滑动。页面上有大小各异的圆形矩形的占位，代表即将填充的内容。这些几何图形通常由是一些手动编写的元素、或者更简单的，一张图片组成。当然，最终的效果也不一定是静态的，有时也可以展示一些动画。<br>不过，这种纯样式的骨架图意味着设计师和前端工程师的大量工作，和一些冗余代码。一旦有新的页面结构出现，很可能就要重新实现。</p>
+<h2 id="空数据骨架图"><a href="#空数据骨架图" class="headerlink" title="空数据骨架图"></a>空数据骨架图</h2><p>这种类型的骨架图跟页面各个模块是挂钩的，数据填充前后的排版应该尽量一致（否则带给用户的就不是心理预期的建设，而是一个乱入的神展开了）。<br>比如我们的<a href="https://m.webnovel.com/" target="_blank" rel="noopener">首页</a>，有各种不同的推书模块，而且各个模块的先后顺序非常固定，构成这些模块的组件是“书”，以及更小的“书封”组件。<br>所以我们要做的几乎只有两件事：</p>
+<ul>
+<li>构造“书”这个组件的骨架（请设计同学帮忙设计）</li>
+<li>构造“骨架数据”</li>
+</ul>
+<p>这样一来，当页面使用了具有骨架功能的组件，且当前数据尚未到位，页面上的相应位置就会显示这个组件的骨架。</p>
+<p>上面说到“几乎”只要做两件事，但实际除了这两件事之外，我们还要考虑这些实现细节：</p>
+<h3 id="骨架组件的状态管理"><a href="#骨架组件的状态管理" class="headerlink" title="骨架组件的状态管理"></a>骨架组件的状态管理</h3><p>我们需要精密地控制各种状态的边界：什么时候显示骨架，什么时候显示真正的数据，数据加载失败的状态，空数据如何处理</p>
+<blockquote>
+<p>最简单的处理方式就是有数据时渲染数据，没有数据时显示骨架。空数据时则可以显示固定ui，或选择不进行渲染。</p>
+</blockquote>
+<h3 id="骨架数据写在哪一层"><a href="#骨架数据写在哪一层" class="headerlink" title="骨架数据写在哪一层"></a>骨架数据写在哪一层</h3><ul>
+<li>全局 <code>store</code> 中的默认数据</li>
+<li>组件 <code>state</code> 的默认值</li>
+<li><code>render</code> 时的兜底项</li>
+</ul>
+<p>这一选择取决于你的需求。<br>写在 <code>render</code> 中是最简单的，不需要有太多的判断，只要像一个单纯的小孩，饭来张口即可。一般我会在写<strong>基础组件</strong>时使用它。<br>写在 <code>state</code> 则相对复杂一些，像一个谨慎的社会人，有新数据到来的时候，会先进行一番判断（比如数据从无到有时），再决定是否要更新。一般我会在<strong>页面组件</strong>中使用它。<br>写在 <code>store</code> 中的效果跟 <code>state</code> 差不多，看你喜欢分而治之还是中心霸权了。<br>总的来说，就是选择在渲染时，还是在更新数据前。</p>
+<p>这里提供一个完整的做法，仅供参考：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 组件</span></span><br><span class="line"><span class="keyword">const</span> BookItem = <span class="function">(<span class="params">&#123; data &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!(data)) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="comment">// 骨架图</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="comment">// 真正的数据填充样式</span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 页面</span></span><br><span class="line"><span class="keyword">const</span> PLACE_HOLDER_DATA = &#123;</span><br><span class="line">  data1: <span class="built_in">Array</span>(<span class="number">9</span>).fill(&#123;&#125;),</span><br><span class="line">  data2: <span class="built_in">Array</span>(<span class="number">5</span>).fill(&#123;&#125;),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      data: _.isEmpty(<span class="keyword">this</span>.props.data) ? PLACE_HOLDER_DATA : <span class="keyword">this</span>.props.data</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentWillReceiveProps(nextProps) &#123;</span><br><span class="line">    <span class="comment">// 只在数据成功加载时更新</span></span><br><span class="line">    <span class="keyword">if</span> (nextProps.fetchSuccess &amp;&amp; !_.isEmpty(nextProps.data)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        data: nextProps.data</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderBooks = <span class="function">(<span class="params">title, books</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span&gt;&#123;title&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          books.map((item, index) =&gt; (</span></span><br><span class="line"><span class="regexp">            &lt;BookItem data=&#123;item&#125; key=&#123;item.bookId || index&#125; /</span>&gt;</span><br><span class="line">          ))</span><br><span class="line">        &#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  render() &#123;</span></span><br><span class="line"><span class="regexp">    const &#123;</span></span><br><span class="line"><span class="regexp">      data: &#123;</span></span><br><span class="line"><span class="regexp">        data1,</span></span><br><span class="line"><span class="regexp">        data2,</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125; = this.state;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 加载成功后如果部分模块无数据，则不显示</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;Fragment&gt;</span></span><br><span class="line"><span class="regexp">        &#123;!_.isEmpty(data1) &amp;&amp; this.renderBooks('book section 1', data1)&#125;</span></span><br><span class="line"><span class="regexp">        &#123;!_.isEmpty(data2) &amp;&amp; this.renderBooks('book section 2', data2)&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>Fragment&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述的基础ui组件 <code>BookItem</code> 我们单独为骨架写了一个 html 结构，但大多数情况下，由于我们的骨架结构与实际渲染内容一致，所以还可以通过使用不同的 <code>classname</code> 或者  <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/:empty" target="_blank" rel="noopener">:empty伪元素</a> 区分同一结构下的显示。</p>
+<h2 id="不需要骨架图的情况"><a href="#不需要骨架图的情况" class="headerlink" title="不需要骨架图的情况"></a>不需要骨架图的情况</h2><p>正如我们一开始所说，骨架图是为了减少用户等待的感觉，提前让用户探索页面结构。基于这个说法，下面是我认为不需要骨架图的情况：</p>
+<ol>
+<li>一个简单的列表，且用户已经有了一些心理预期。用户无法通过此处的骨架图有任何收获，反而让页面变得拥挤。</li>
+<li>页面的数据结构未知（这应该是一句废话吧），当然，对于一定的抖动，可以衡量一下。</li>
+</ol>
+<p>骨架图虽然在一定程度上能提高用户体验，但是并非万能。做得再完善的骨架图也不及一个ssr。毕竟，天下武功，唯快不破 :P。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#纯样式的骨架图"><span class="toc-number">1.</span> <span class="toc-text">纯样式的骨架图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空数据骨架图"><span class="toc-number">2.</span> <span class="toc-text">空数据骨架图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#骨架组件的状态管理"><span class="toc-number">2.1.</span> <span class="toc-text">骨架组件的状态管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#骨架数据写在哪一层"><span class="toc-number">2.2.</span> <span class="toc-text">骨架数据写在哪一层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不需要骨架图的情况"><span class="toc-number">3.</span> <span class="toc-text">不需要骨架图的情况</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&text=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&is_video=false&description=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=骨架图这么简单的东西我竟然也写了一篇文章？&body=Check out this article: http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&title=骨架图这么简单的东西我竟然也写了一篇文章？"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://y2x33.github.io/2018/11/24/18-11-24-about-page-placeholder/&name=骨架图这么简单的东西我竟然也写了一篇文章？&description=&lt;p&gt;菊花和白屏并不能给用户美好的体验。因此在部分页面，我们尝试了一些骨架图。骨架图的初衷就是减少用户等待的感觉，loading 到 loaded 的过程中也可以探索页面结构。&lt;br&gt;骨架图大概有这两种类型：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;纯样式的骨架图&lt;/li&gt;
+&lt;li&gt;空数据骨架图&lt;/li&gt;
+&lt;/ol&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 xiin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/y2x33">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-106924877-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xiin';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

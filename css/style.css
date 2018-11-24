@@ -439,12 +439,13 @@ html {
   border-top: 2px solid #666;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 body {
   color: #666;
   background-color: #fff;
   font-size: 14px;
-  font-family: serif;
+  font-family: "Meslo LG", serif;
   font-weight: 400;
   line-height: 1.725;
   text-rendering: geometricPrecision;
